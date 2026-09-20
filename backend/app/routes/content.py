@@ -2,16 +2,18 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from .. import data
 from ..schemas import (
     Certification,
     EducationItem,
+    GitHubReposResponse,
     Profile,
     Project,
     SkillCategory,
 )
+from ..services import coding_service
 
 router = APIRouter(tags=["content"])
 
@@ -39,3 +41,8 @@ async def get_projects() -> list[Project]:
 @router.get("/certifications", response_model=list[Certification])
 async def get_certifications() -> list[Certification]:
     return data.CERTIFICATIONS
+
+
+@router.get("/github/repos", response_model=GitHubReposResponse)
+async def github_repos(force: bool = Query(False, description="Bypass cache")) -> GitHubReposResponse:
+    return await coding_service.get_repos(force=force)

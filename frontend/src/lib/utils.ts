@@ -28,3 +28,34 @@ export function formatCompact(value: number): string {
 export function isExternalUrl(url: string | null | undefined): url is string {
   return typeof url === 'string' && /^https?:\/\//i.test(url)
 }
+
+/** GitHub's auto-generated Open Graph card image for a repo URL. */
+export function githubOgImage(githubUrl: string | null | undefined): string | null {
+  if (!githubUrl) return null
+  const match = /github\.com\/([^/]+)\/([^/?#]+)/i.exec(githubUrl)
+  if (!match) return null
+  return `https://opengraph.githubassets.com/1/${match[1]}/${match[2]}`
+}
+
+/** On-demand screenshot of a live site (thum.io — free, cached). */
+export function liveScreenshot(url: string | null | undefined): string | null {
+  if (!url) return null
+  return `https://image.thum.io/get/width/1200/crop/900/noanimate/${url}`
+}
+
+/**
+ * Best available thumbnail for a project:
+ * explicit image → live-site screenshot → GitHub repo card → null (icon).
+ */
+export function projectThumbnail(project: {
+  image?: string | null
+  liveUrl?: string | null
+  githubUrl?: string | null
+}): string | null {
+  return (
+    project.image ??
+    liveScreenshot(project.liveUrl) ??
+    githubOgImage(project.githubUrl) ??
+    null
+  )
+}

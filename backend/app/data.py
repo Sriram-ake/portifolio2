@@ -25,7 +25,8 @@ SOCIAL = SocialLinks(
     geeksforgeeks="https://www.geeksforgeeks.org/user/akesriram/",
     hackerrank="https://www.hackerrank.com/profile/akesurekha",
     codeforces="https://codeforces.com/profile/Sriram_2007",
-    instagram=None,
+    codolio="https://codolio.com/profile/sriram1108",
+    instagram="https://www.instagram.com/pspk_ram_42/",
 )
 
 PROFILE = Profile(
@@ -38,12 +39,13 @@ PROFILE = Profile(
     year="3rd Year",
     cgpa="8.36",
     interests=["Listening to music"],
+    languages=["English", "Telugu", "Hindi (Basic)"],
     email="akesurekha@gmail.com",
     summary=(
-        "Ake Sri Ram is a B.Tech third-year Information Technology student at Aditya "
-        "College of Engineering and Technology, Surampalem. He focuses on software "
-        "development, problem solving, and backend engineering, and enjoys turning "
-        "ideas into practical, well-built technology projects."
+        "Ake Sri Ram builds ideas into working software. He is an Information Technology "
+        "student at Aditya College of Engineering and Technology, focused on Java, "
+        "Spring Boot, full-stack development, DSA, and AI. He learns by building real "
+        "projects, solving problems, and turning concepts into usable products."
     ),
     social=SOCIAL,
 )
@@ -54,26 +56,34 @@ EDUCATION: list[EducationItem] = [
         level="B.Tech — Information Technology",
         institution="Aditya College of Engineering and Technology",
         location="Surampalem",
-        detail="3rd Year",
+        detail="3rd Year · 2024 – Present",
         score="CGPA 8.36",
     ),
-    EducationItem(id="intermediate", level="Intermediate", institution="Gamyam Junior College"),
+    EducationItem(
+        id="intermediate",
+        level="Intermediate — MPC",
+        institution="Gamyam Junior College",
+        detail="2022 – 2024",
+        score="93.8%",
+    ),
     EducationItem(
         id="ssc",
-        level="SSC",
+        level="SSC — High School",
         institution="S P P P R Z P High School",
         location="Pandalapaka",
+        detail="2017 – 2022",
+        score="78.7%",
     ),
 ]
 
 SKILLS: list[SkillCategory] = [
     SkillCategory(
         id="programming",
-        title="Programming",
+        title="Programming Languages",
         skills=[
-            Skill(name="Java", level="Working Knowledge"),
+            Skill(name="C", level="Working Knowledge"),
             Skill(name="Python", level="Working Knowledge"),
-            Skill(name="C", level="Familiar"),
+            Skill(name="Java", level="Working Knowledge"),
             Skill(name="C++", level="Familiar"),
         ],
     ),
@@ -83,27 +93,24 @@ SKILLS: list[SkillCategory] = [
         skills=[
             Skill(name="HTML", level="Working Knowledge"),
             Skill(name="CSS", level="Working Knowledge"),
-            Skill(name="JavaScript", level="Familiar"),
-            Skill(name="React", level="Learning"),
-            Skill(name="TypeScript", level="Learning"),
+            Skill(name="JavaScript", level="Working Knowledge"),
         ],
     ),
     SkillCategory(
         id="backend",
         title="Backend",
         skills=[
-            Skill(name="Python", level="Working Knowledge"),
-            Skill(name="FastAPI", level="Learning"),
-            Skill(name="Spring Boot", level="Learning"),
+            Skill(name="Spring Boot", level="Working Knowledge"),
+            Skill(name="REST APIs", level="Working Knowledge"),
+            Skill(name="Django", level="Familiar"),
         ],
     ),
     SkillCategory(
         id="database",
-        title="Database",
+        title="Databases",
         skills=[
-            Skill(name="SQL", level="Working Knowledge"),
-            Skill(name="MySQL", level="Familiar"),
-            Skill(name="PostgreSQL", level="Learning"),
+            Skill(name="MySQL", level="Working Knowledge"),
+            Skill(name="Google Sheets", level="Familiar"),
         ],
     ),
     SkillCategory(
@@ -112,12 +119,70 @@ SKILLS: list[SkillCategory] = [
         skills=[
             Skill(name="Git", level="Working Knowledge"),
             Skill(name="GitHub", level="Working Knowledge"),
-            Skill(name="IntelliJ IDEA", level="Familiar"),
+            Skill(name="IntelliJ IDEA", level="Working Knowledge"),
             Skill(name="VS Code", level="Working Knowledge"),
         ],
     ),
 ]
 
-# No invented content. Populate with real data when available.
-PROJECTS: list[Project] = []
-CERTIFICATIONS: list[Certification] = []
+# Real projects (github.com/Sriram-ake). Links are null where no public repo
+# or live demo exists yet — never fabricated.
+PROJECTS: list[Project] = [
+    Project(
+        id="calculator",
+        title="Calculator",
+        description="A responsive calculator web app with a clean, minimal UI.",
+        technologies=["JavaScript", "HTML", "CSS"],
+        featured=True,
+        category="Web",
+        year="2025",
+        github_url="https://github.com/Sriram-ake/Calculator",
+        live_url="https://sriram-ake.github.io/Calculator/",
+    ),
+    Project(
+        id="synapcraft",
+        title="SynapCraft",
+        description="An interactive fruit-fly connectome model in Minecraft.",
+        technologies=["JavaScript", "Python", "HTML", "CSS"],
+        featured=True,
+        category="AI",
+        year="2026",
+        github_url="https://github.com/Sriram-ake/SynapCraft",
+        live_url="https://sriram-ake.github.io/SynapCraft/",
+    ),
+]
+
+# Certifications from the resume (verified titles/issuers).
+CERTIFICATIONS: list[Certification] = [
+    Certification(
+        id="cisco-c",
+        title="C Programming",
+        issuer="Cisco",
+        issue_date="",
+        category="Programming",
+    ),
+    Certification(
+        id="oracle-ai",
+        title="Artificial Intelligence Certification",
+        issuer="Oracle",
+        issue_date="",
+        category="AI",
+    ),
+    Certification(
+        id="html-css",
+        title="HTML and CSS",
+        issuer="",
+        issue_date="",
+        category="Web",
+    ),
+]
+
+# Achievements from the resume (verified). Used to ground the AI assistant.
+ACHIEVEMENTS: list[str] = [
+    "4-star rating in C on HackerRank",
+    "3-star rating in Python on HackerRank",
+    "3-star rating in Java on HackerRank",
+    "93.8% aggregate in Intermediate (MPC)",
+    "78.7% aggregate in SSC (10th grade)",
+    "Regularly practices data structures and algorithmic problem solving",
+]

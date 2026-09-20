@@ -1,4 +1,5 @@
 import { AuroraBackground } from '@/components/ui/AuroraBackground'
+import { CustomCursor } from '@/components/ui/CustomCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -8,8 +9,9 @@ import { Education } from '@/components/education/Education'
 import { Skills } from '@/components/skills/Skills'
 import { lazy, Suspense } from 'react'
 import { Projects } from '@/components/projects/Projects'
+import { GitHubActivity } from '@/components/github/GitHubActivity'
 import { Certifications } from '@/components/certifications/Certifications'
-import { Achievements } from '@/components/achievements/Achievements'
+import { Milestones } from '@/components/milestones/Milestones'
 
 // Coding pulls in the charts library — load it lazily so it doesn't weigh down
 // the initial bundle (it lives below the fold).
@@ -28,6 +30,7 @@ export default function App() {
         Skip to content
       </a>
       <AuroraBackground />
+      <CustomCursor />
       <ScrollProgress />
       <Navbar />
 
@@ -37,13 +40,14 @@ export default function App() {
         <Education />
         <Skills />
         <Projects />
+        <GitHubActivity />
         <Certifications />
         <Suspense
           fallback={<div className="section-pad container-px text-center text-muted-foreground">Loading coding activity…</div>}
         >
           <Coding />
         </Suspense>
-        <Achievements />
+        <Milestones />
         <Journey />
         <Assistant />
         <Contact />

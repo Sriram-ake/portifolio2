@@ -1,14 +1,31 @@
 import { motion } from 'framer-motion'
-import { RefreshCw } from 'lucide-react'
+import { ArrowUpRight, RefreshCw, Target } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { StateBlock } from '@/components/ui/StateBlock'
 import { Button } from '@/components/ui/Button'
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { useCoding } from '@/hooks/useCoding'
 import { useHeatmaps } from '@/hooks/useHeatmaps'
+import { socialLinks } from '@/data/socialLinks'
 import { staggerContainer, fadeUp, viewportOnce } from '@/animations/variants'
 import { PlatformCard } from './PlatformCard'
 import { BreakdownChart } from './BreakdownChart'
 import { ActivityHeatmap } from './ActivityHeatmap'
+
+/** Sum "solved" counts reported across platforms into one total. */
+function totalSolved(platforms: { status: string; stats: { label: string; value: string | number }[] }[]): number {
+  let total = 0
+  for (const p of platforms) {
+    if (p.status !== 'ok') continue
+    for (const s of p.stats) {
+      if (/solved/i.test(s.label)) {
+        const n = typeof s.value === 'number' ? s.value : Number(String(s.value).replace(/[, ]/g, ''))
+        if (Number.isFinite(n)) total += n
+      }
+    }
+  }
+  return total
+}
 
 export function Coding() {
   const { data, loading, error, refetch } = useCoding()
@@ -17,6 +34,7 @@ export function Coding() {
   const platforms = data?.platforms ?? []
   const chartsAvailable = platforms.filter((p) => p.status === 'ok' && p.breakdown?.length)
   const activeHeatmaps = heatmaps.filter((h) => h.status === 'ok' && h.days.length > 0)
+  const solved = totalSolved(platforms)
 
   return (
     <Section
@@ -49,6 +67,37 @@ export function Coding() {
         />
       ) : (
         <>
+          {/* Aggregate: total problems solved across platforms */}
+          {solved > 0 && (
+            <div className="mb-6 flex flex-col items-start justify-between gap-4 rounded-card border border-border bg-gradient-to-br from-accent/10 to-transparent p-6 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-4">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                  <Target className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="font-display text-3xl font-bold tabular-nums">
+                    <AnimatedCounter value={solved} />
+                    <span className="text-accent">+</span>
+                  </p>
+                  <p className="text-sm text-muted-foreground">Problems solved across platforms</p>
+                </div>
+              </div>
+              {socialLinks.codolio && (
+                <Button
+                  as="a"
+                  href={socialLinks.codolio}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="secondary"
+                  size="sm"
+                >
+                  Full stats on Codolio
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </Button>
+              )}
+            </div>
+          )}
+
           <motion.div
             variants={staggerContainer}
             initial="hidden"

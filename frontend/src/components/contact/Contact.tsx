@@ -1,11 +1,11 @@
 import { useState, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
-import { CheckCircle2, Mail, Send } from 'lucide-react'
+import { CheckCircle2, Mail, Phone, Send } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
 import { SocialLinks } from '@/components/ui/SocialLinks'
 import { api, ApiError } from '@/services/api'
-import { profile } from '@/data/profile'
+import { profile, profileVisibility } from '@/data/profile'
 import { fadeUp, viewportOnce } from '@/animations/variants'
 import { cn } from '@/lib/utils'
 
@@ -101,11 +101,20 @@ export function Contact() {
             <h3 className="font-display text-lg font-semibold">Reach out directly</h3>
             <a
               href={`mailto:${profile.email}`}
-              className="mt-4 inline-flex items-center gap-2 text-accent transition-colors hover:underline"
+              className="mt-4 flex items-center gap-2 text-accent transition-colors hover:underline"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
               {profile.email}
             </a>
+            {profileVisibility.showPhone && (
+              <a
+                href={`tel:${profile.phone.replace(/\s/g, '')}`}
+                className="mt-3 flex items-center gap-2 text-accent transition-colors hover:underline"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {profile.phone}
+              </a>
+            )}
             <p className="mt-6 text-sm text-muted-foreground">
               You'll also find me across these platforms:
             </p>

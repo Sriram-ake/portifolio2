@@ -8,7 +8,8 @@ export interface SocialLinks {
   geeksforgeeks: string
   hackerrank: string
   codeforces: string
-  /** Kept null until the real profile URL is provided. Never invent it. */
+  /** Coding-profile aggregator (total problems solved across platforms). */
+  codolio: string | null
   instagram: string | null
 }
 
@@ -24,6 +25,9 @@ export interface Profile {
   interests: string[]
   email: string
   phone: string
+  languages?: string[]
+  /** Optional profile photo served from /public. */
+  avatarUrl?: string | null
   /** Never exposed publicly unless explicitly enabled via config. */
   dateOfBirth?: string
   resumeUrl: string | null
@@ -64,6 +68,10 @@ export interface Project {
   technologies: string[]
   screenshots?: string[]
   image?: string | null
+  /** Optional lucide icon key for the card thumbnail fallback. */
+  icon?: string
+  /** Marks work that is still in progress (shows a subtle badge). */
+  inProgress?: boolean
   githubUrl?: string | null
   liveUrl?: string | null
   category?: string
@@ -128,6 +136,24 @@ export interface Heatmap {
   status: 'ok' | 'unavailable' | 'error'
   total: number
   days: HeatmapDay[]
+  updatedAt: string | null
+  message?: string
+}
+
+export interface GitHubRepo {
+  name: string
+  description: string | null
+  language: string | null
+  url: string
+  homepage: string | null
+  stars: number
+  forks: number
+  updatedAt: string | null
+}
+
+export interface GitHubReposResponse {
+  status: 'ok' | 'unavailable' | 'error'
+  repos: GitHubRepo[]
   updatedAt: string | null
   message?: string
 }

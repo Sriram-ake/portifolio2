@@ -75,7 +75,7 @@ export function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close AI assistant' : 'Open AI assistant'}
         aria-expanded={open}
-        className="fixed bottom-5 right-5 z-[85] flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background shadow-[0_10px_40px_-10px_rgb(var(--color-accent)/0.7)] transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="fixed bottom-5 right-5 z-[85] flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-[0_10px_40px_-10px_rgb(var(--color-accent)/0.7)] transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -166,7 +166,7 @@ export function ChatWidget() {
                       className={cn(
                         'group relative max-w-[85%] rounded-2xl px-4 py-2.5 text-sm',
                         m.role === 'user'
-                          ? 'rounded-br-sm bg-accent text-background'
+                          ? 'rounded-br-sm bg-accent text-accent-foreground'
                           : cn(
                               'rounded-tl-sm bg-muted',
                               m.error && 'ring-1 ring-destructive/40',
@@ -245,7 +245,7 @@ export function ChatWidget() {
                     onClick={handleSend}
                     disabled={!input.trim()}
                     aria-label="Send message"
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-background transition-opacity disabled:opacity-40"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground transition-opacity disabled:opacity-40"
                   >
                     <Send className="h-4 w-4" aria-hidden="true" />
                   </button>

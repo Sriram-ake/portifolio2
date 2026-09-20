@@ -1,18 +1,18 @@
 import type { SkillCategory } from '@/types'
 
 /**
- * Skills grouped by category. Proficiency labels are intentionally
- * conservative — 'Working Knowledge' | 'Familiar' | 'Learning'.
- * Update these as skills evolve; do not overstate expertise.
+ * Skills grouped by category. Reflects Sri Ram's full-stack focus with
+ * Spring Boot, alongside the languages/tools from his resume.
+ * Proficiency labels are conservative — adjust freely.
  */
 export const skillCategories: SkillCategory[] = [
   {
     id: 'programming',
-    title: 'Programming',
+    title: 'Programming Languages',
     skills: [
       { name: 'Java', level: 'Working Knowledge' },
       { name: 'Python', level: 'Working Knowledge' },
-      { name: 'C', level: 'Familiar' },
+      { name: 'C', level: 'Working Knowledge' },
       { name: 'C++', level: 'Familiar' },
     ],
   },
@@ -22,27 +22,24 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'HTML', level: 'Working Knowledge' },
       { name: 'CSS', level: 'Working Knowledge' },
-      { name: 'JavaScript', level: 'Familiar' },
-      { name: 'React', level: 'Learning' },
-      { name: 'TypeScript', level: 'Learning' },
+      { name: 'JavaScript', level: 'Working Knowledge' },
     ],
   },
   {
     id: 'backend',
     title: 'Backend',
     skills: [
-      { name: 'Python', level: 'Working Knowledge' },
-      { name: 'FastAPI', level: 'Learning' },
-      { name: 'Spring Boot', level: 'Learning' },
+      { name: 'Spring Boot', level: 'Working Knowledge' },
+      { name: 'REST APIs', level: 'Working Knowledge' },
+      { name: 'Django', level: 'Familiar' },
     ],
   },
   {
     id: 'database',
-    title: 'Database',
+    title: 'Databases',
     skills: [
-      { name: 'SQL', level: 'Working Knowledge' },
-      { name: 'MySQL', level: 'Familiar' },
-      { name: 'PostgreSQL', level: 'Learning' },
+      { name: 'MySQL', level: 'Working Knowledge' },
+      { name: 'Google Sheets', level: 'Familiar' },
     ],
   },
   {
@@ -51,8 +48,24 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Git', level: 'Working Knowledge' },
       { name: 'GitHub', level: 'Working Knowledge' },
-      { name: 'IntelliJ IDEA', level: 'Familiar' },
+      { name: 'IntelliJ IDEA', level: 'Working Knowledge' },
       { name: 'VS Code', level: 'Working Knowledge' },
     ],
   },
+]
+
+export interface SoftSkill {
+  name: string
+  /** lucide icon key mapped in the Skills component. */
+  icon: 'puzzle' | 'book' | 'message' | 'users' | 'flag' | 'shuffle'
+}
+
+/** Soft skills & strengths. */
+export const softSkills: SoftSkill[] = [
+  { name: 'Analytical Thinking', icon: 'puzzle' },
+  { name: 'Continuous Learning', icon: 'book' },
+  { name: 'Clear Communication', icon: 'message' },
+  { name: 'Collaborative Teamwork', icon: 'users' },
+  { name: 'Ownership & Initiative', icon: 'flag' },
+  { name: 'Adaptive Mindset', icon: 'shuffle' },
 ]

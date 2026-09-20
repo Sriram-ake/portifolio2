@@ -122,9 +122,16 @@ export function Certifications() {
                         {cert.category}
                       </Badge>
                       <h3 className="mt-3 font-display font-semibold">{cert.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{cert.issuer}</p>
-                      <p className="mt-auto pt-3 text-xs text-muted-foreground">
-                        {formatDate(cert.issueDate)}
+                      {cert.issuer && (
+                        <p className="mt-1 text-sm text-muted-foreground">{cert.issuer}</p>
+                      )}
+                      <p className="mt-auto pt-3 text-xs font-medium text-accent">
+                        View certificate →
+                        {cert.issueDate && (
+                          <span className="ml-2 font-normal text-muted-foreground">
+                            {formatDate(cert.issueDate)}
+                          </span>
+                        )}
                       </p>
                     </div>
                   </SpotlightCard>
@@ -146,14 +153,18 @@ export function Certifications() {
               />
             )}
             <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">Issuer</p>
-                <p className="mt-1 font-medium">{active.issuer}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">Issued</p>
-                <p className="mt-1 font-medium">{formatDate(active.issueDate)}</p>
-              </div>
+              {active.issuer && (
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">Issuer</p>
+                  <p className="mt-1 font-medium">{active.issuer}</p>
+                </div>
+              )}
+              {active.issueDate && (
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">Issued</p>
+                  <p className="mt-1 font-medium">{formatDate(active.issueDate)}</p>
+                </div>
+              )}
               {active.credentialId && (
                 <div className="col-span-2">
                   <p className="text-xs uppercase tracking-widest text-muted-foreground">

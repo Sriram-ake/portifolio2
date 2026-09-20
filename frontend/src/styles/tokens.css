@@ -16,6 +16,7 @@
   --color-border: 54 46 36;
   --color-accent: 245 158 11; /* #f59e0b amber */
   --color-accent-secondary: 251 113 133; /* #fb7185 rose */
+  --color-on-accent: 26 18 5; /* dark text for use on amber surfaces (AA) */
   --color-destructive: 239 68 68; /* red-500 (distinct from rose accent) */
   --color-success: 74 222 128; /* green-400 */
 
@@ -45,8 +46,9 @@
   --color-card: 255 255 255;
   --color-card-foreground: 26 22 16;
   --color-border: 228 222 213;
-  --color-accent: 217 119 6; /* amber-600 for AA contrast on light */
-  --color-accent-secondary: 225 29 72; /* rose-600 */
+  --color-accent: 180 83 9; /* amber-700 — AA-legible as text on light (~4.7:1) */
+  --color-accent-secondary: 190 24 93; /* rose-700 */
+  --color-on-accent: 255 255 255; /* white on amber-700 for bold button labels */
   --color-destructive: 220 38 38;
   --color-success: 22 163 74;
 

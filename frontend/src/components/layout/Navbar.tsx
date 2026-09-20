@@ -6,6 +6,7 @@ import { useScrolled } from '@/hooks/useScrolled'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { profile } from '@/data/profile'
 
 const sectionIds = navItems.map((n) => n.id)
@@ -76,25 +77,26 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="hidden lg:block">
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={() => handleNav('#contact')}
-          >
+        <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
+          <Button size="sm" variant="secondary" onClick={() => handleNav('#contact')}>
             Get in touch
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-foreground lg:hidden"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Mobile controls */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-foreground"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile drawer */}

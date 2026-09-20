@@ -80,8 +80,8 @@ export function Hero() {
             transition={{ delay: 0.7, duration: 0.5 }}
             className="mt-6 max-w-prose leading-relaxed text-muted-foreground"
           >
-            Developer, problem solver, and continuous learner focused on building practical,
-            well-crafted software.
+            I build ideas into working software — full-stack apps with Java, Spring Boot and modern
+            frontends, backed by a serious focus on DSA and AI.
           </motion.p>
 
           {/* CTAs */}
@@ -129,8 +129,8 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: interactive visual */}
-        <div className="hidden lg:block">
+        {/* Right: portrait visual */}
+        <div className="mt-4 lg:mt-0">
           <HeroVisual />
         </div>
       </div>

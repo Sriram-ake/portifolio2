@@ -19,8 +19,9 @@ def test_profile(client: TestClient) -> None:
     body = resp.json()
     assert body["name"] == "Ake Sri Ram"
     assert body["cgpa"] == "8.36"
-    # Instagram must remain null (never invented).
-    assert body["social"]["instagram"] is None
+    # Instagram + Codolio are the user's real, provided profiles.
+    assert body["social"]["instagram"] == "https://www.instagram.com/pspk_ram_42/"
+    assert "codolio.com" in body["social"]["codolio"]
     # Sensitive fields must not be exposed.
     assert "dateOfBirth" not in body
     assert "phone" not in body
@@ -41,7 +42,18 @@ def test_skills(client: TestClient) -> None:
     assert any(c["id"] == "programming" for c in categories)
 
 
-def test_projects_and_certs_empty_not_fabricated(client: TestClient) -> None:
-    # No fake data — both start empty.
-    assert client.get("/api/projects").json() == []
-    assert client.get("/api/certifications").json() == []
+def test_projects_are_real(client: TestClient) -> None:
+    # Projects come from real GitHub repos — Calculator has a verified live demo.
+    projects = client.get("/api/projects").json()
+    titles = {p["title"] for p in projects}
+    assert "Calculator" in titles
+    calc = next(p for p in projects if p["title"] == "Calculator")
+    assert calc["github_url"].startswith("https://github.com/Sriram-ake/")
+
+
+def test_certifications_from_resume(client: TestClient) -> None:
+    # Certifications come from the resume (verified), not fabricated.
+    certs = client.get("/api/certifications").json()
+    titles = {c["title"] for c in certs}
+    assert "C Programming" in titles
+    assert any(c["issuer"] == "Cisco" for c in certs)

@@ -21,6 +21,7 @@ export default {
         accent: {
           DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
           secondary: 'rgb(var(--color-accent-secondary) / <alpha-value>)',
+          foreground: 'rgb(var(--color-on-accent) / <alpha-value>)',
         },
         destructive: 'rgb(var(--color-destructive) / <alpha-value>)',
         success: 'rgb(var(--color-success) / <alpha-value>)',

@@ -43,8 +43,10 @@ def _social_text() -> str:
         "GeeksforGeeks": s.geeksforgeeks,
         "HackerRank": s.hackerrank,
         "Codeforces": s.codeforces,
+        "Codolio (aggregated problem-solving stats)": s.codolio,
+        "Instagram": s.instagram,
     }
-    return "\n".join(f"- {k}: {v}" for k, v in entries.items())
+    return "\n".join(f"- {k}: {v}" for k, v in entries.items() if v)
 
 
 def build_context() -> str:
@@ -55,9 +57,16 @@ def build_context() -> str:
         else "No projects have been published on the portfolio yet."
     )
     certs = (
-        "\n".join(f"- {c.title} — {c.issuer}" for c in data.CERTIFICATIONS)
+        "\n".join(
+            f"- {c.title}" + (f" — {c.issuer}" if c.issuer else "") for c in data.CERTIFICATIONS
+        )
         if data.CERTIFICATIONS
         else "No certifications have been published on the portfolio yet."
+    )
+    achievements = (
+        "\n".join(f"- {a}" for a in data.ACHIEVEMENTS)
+        if data.ACHIEVEMENTS
+        else "No achievements listed yet."
     )
     return f"""PROFILE
 Name: {p.name}
@@ -79,6 +88,12 @@ PROJECTS
 
 CERTIFICATIONS
 {certs}
+
+ACHIEVEMENTS
+{achievements}
+
+LANGUAGES
+{", ".join(p.languages)}
 
 CODING PLATFORMS & SOCIAL LINKS
 {_social_text()}
@@ -117,8 +132,16 @@ def fallback_answer(question: str) -> str:
             f"{p.name} is pursuing a {p.branch} B.Tech ({p.year}) at {p.college}, {p.location}, "
             f"with a current CGPA of {p.cgpa}."
         )
-    if has("skill", "technolog", "tech stack", "language", "know", "programming"):
+    if has("learning", "currently learn", "improving", "getting better"):
+        learning = [
+            s.name for cat in data.SKILLS for s in cat.skills if s.level == "Learning"
+        ]
+        if learning:
+            return "He's currently learning: " + ", ".join(dict.fromkeys(learning)) + "."
+    if has("skill", "technolog", "tech stack", "language", "know", "programming", "stack"):
         return "Here are the technologies he works with:\n\n" + _skills_text()
+    if has("where", "location", "based", "from", "live"):
+        return f"{p.name} is based in {p.location}, studying at {p.college}."
     if has("project"):
         if data.PROJECTS:
             return "Here are his projects:\n\n" + "\n".join(
@@ -131,8 +154,16 @@ def fallback_answer(question: str) -> str:
                 f"- {c.title} — {c.issuer}" for c in data.CERTIFICATIONS
             )
         return "No certifications have been published on the portfolio yet."
-    if has("contact", "email", "reach", "hire", "connect"):
-        return f"You can reach {p.name} by email at **{p.email}**, or via the contact form on this site."
+    if has("achievement", "rating", "star", "accomplish", "award", "rank"):
+        if data.ACHIEVEMENTS:
+            return "Here are his achievements:\n\n" + "\n".join(
+                f"- {a}" for a in data.ACHIEVEMENTS
+            )
+    if has("contact", "email", "reach", "hire", "connect", "phone", "number", "call"):
+        return (
+            f"You can reach {p.name} by email at **{p.email}** or by phone at "
+            "**+91 98493 26138**, or use the contact form on this site."
+        )
     if has("github"):
         return f"His GitHub profile: {p.social.github}"
     if has("leetcode"):
@@ -147,6 +178,10 @@ def fallback_answer(question: str) -> str:
         return f"His GeeksforGeeks profile: {p.social.geeksforgeeks}"
     if has("linkedin"):
         return f"His LinkedIn profile: {p.social.linkedin}"
+    if has("codolio") and p.social.codolio:
+        return f"His aggregated problem-solving stats (Codolio): {p.social.codolio}"
+    if has("instagram") and p.social.instagram:
+        return f"His Instagram: {p.social.instagram}"
     if has("coding", "platform", "competitive"):
         return "He's active on these coding platforms:\n\n" + _social_text()
     if has("interest", "hobby", "music"):

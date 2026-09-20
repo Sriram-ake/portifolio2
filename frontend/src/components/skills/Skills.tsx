@@ -1,15 +1,52 @@
 import { motion } from 'framer-motion'
+import {
+  BookOpen,
+  Braces,
+  Database,
+  LayoutTemplate,
+  MessagesSquare,
+  Puzzle,
+  Server,
+  Shuffle,
+  Sparkles,
+  Flag,
+  Users,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react'
 import { Section } from '@/components/ui/Section'
-import { SpotlightCard } from '@/components/ui/SpotlightCard'
-import { skillCategories } from '@/data/skills'
-import type { SkillProficiency } from '@/types'
+import { TechIcon } from '@/components/ui/TechIcon'
+import { skillCategories, softSkills } from '@/data/skills'
 import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
-import { cn } from '@/lib/utils'
 
-const levelStyles: Record<SkillProficiency, string> = {
-  'Working Knowledge': 'bg-accent/15 text-accent ring-accent/25',
-  Familiar: 'bg-accent-secondary/15 text-accent-secondary ring-accent-secondary/25',
-  Learning: 'bg-muted text-muted-foreground ring-border',
+const categoryIcons: Record<string, LucideIcon> = {
+  programming: Braces,
+  frontend: LayoutTemplate,
+  backend: Server,
+  database: Database,
+  tools: Wrench,
+}
+
+const softIcons: Record<string, LucideIcon> = {
+  puzzle: Puzzle,
+  book: BookOpen,
+  message: MessagesSquare,
+  users: Users,
+  flag: Flag,
+  shuffle: Shuffle,
+}
+
+function CategoryHeader({ icon: Icon, title }: { icon: LucideIcon; title: string }) {
+  return (
+    <div className="mb-4 flex items-center gap-3">
+      <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card text-accent">
+        <Icon className="h-5 w-5" aria-hidden="true" />
+      </span>
+      <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+        {title}
+      </h3>
+    </div>
+  )
 }
 
 export function Skills() {
@@ -18,53 +55,77 @@ export function Skills() {
       id="skills"
       eyebrow="Skills"
       title="What I work with"
-      description="Technologies I use, grouped by area. Labels reflect honest, current proficiency."
+      description="Technologies and strengths across the stack. Hover a skill to see my current level."
     >
-      {/* Legend */}
-      <div className="mb-8 flex flex-wrap gap-2 text-xs">
-        {(Object.keys(levelStyles) as SkillProficiency[]).map((level) => (
-          <span
-            key={level}
-            className={cn(
-              'inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono ring-1 ring-inset',
-              levelStyles[level],
-            )}
-          >
-            {level}
-          </span>
-        ))}
-      </div>
-
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
-        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <div className="space-y-10">
         {skillCategories.map((category) => (
-          <motion.div key={category.id} variants={fadeUp}>
-            <SpotlightCard className="h-full p-6">
-              <h3 className="font-display text-lg font-semibold">{category.title}</h3>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <li key={skill.name}>
-                    <span
-                      className={cn(
-                        'inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ring-1 ring-inset transition-colors',
-                        levelStyles[skill.level],
-                      )}
-                      title={skill.level}
-                    >
+          <motion.div
+            key={category.id}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+          >
+            <CategoryHeader icon={categoryIcons[category.id] ?? Braces} title={category.title} />
+            <motion.ul
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={viewportOnce}
+              className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6"
+            >
+              {category.skills.map((skill) => (
+                <motion.li key={skill.name} variants={fadeUp}>
+                  <div
+                    title={skill.level}
+                    className="group flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-3 text-accent transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50"
+                  >
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center">
+                      <TechIcon name={skill.name} size={22} />
+                    </span>
+                    <span className="truncate text-sm font-medium text-foreground">
                       {skill.name}
                     </span>
-                  </li>
-                ))}
-              </ul>
-            </SpotlightCard>
+                  </div>
+                </motion.li>
+              ))}
+            </motion.ul>
           </motion.div>
         ))}
-      </motion.div>
+
+        {/* Soft skills & strengths */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+        >
+          <CategoryHeader icon={Sparkles} title="Soft Skills & Strengths" />
+          <motion.ul
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6"
+          >
+            {softSkills.map((skill) => {
+              const Icon = softIcons[skill.icon]
+              return (
+                <motion.li key={skill.name} variants={fadeUp}>
+                  <div className="group flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center text-accent-secondary">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className="truncate text-sm font-medium text-foreground">
+                      {skill.name}
+                    </span>
+                  </div>
+                </motion.li>
+              )
+            })}
+          </motion.ul>
+        </motion.div>
+      </div>
     </Section>
   )
 }

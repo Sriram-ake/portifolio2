@@ -11,7 +11,8 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173,
+    // Honor a PORT assigned by the environment; fall back to 5173 locally.
+    port: process.env.PORT ? Number(process.env.PORT) : 5173,
     proxy: {
       // Proxy API calls to the FastAPI backend during development.
       '/api': {

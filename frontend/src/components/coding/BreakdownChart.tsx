@@ -2,6 +2,7 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import type { CodingPlatformStats } from '@/types'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { BrandIcon, type BrandKey } from '@/components/ui/BrandIcon'
+import { BRAND_COLORS } from '@/lib/brandColors'
 
 interface BreakdownChartProps {
   data: CodingPlatformStats
@@ -19,7 +20,11 @@ export function BreakdownChart({ data }: BreakdownChartProps) {
   return (
     <SpotlightCard className="p-6">
       <div className="flex items-center gap-2">
-        <BrandIcon name={data.platform as BrandKey} size={18} />
+        <BrandIcon
+          name={data.platform as BrandKey}
+          size={18}
+          color={BRAND_COLORS[data.platform as BrandKey]}
+        />
         <h3 className="font-display font-semibold">{data.displayName} breakdown</h3>
       </div>
 

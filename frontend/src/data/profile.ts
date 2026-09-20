@@ -16,14 +16,15 @@ export const profile: Profile = {
   cgpa: '8.36',
   interests: ['Listening to music'],
   email: 'akesurekha@gmail.com',
-  phone: '9849326138',
+  phone: '+91 98493 26138',
+  languages: ['English', 'Telugu', 'Hindi (Basic)'],
+  avatarUrl: '/profile.jpg',
   // Not rendered publicly. Kept here for completeness only.
   dateOfBirth: '2007-11-28',
-  // Set to a real file under /public/resume when available; null renders a
-  // graceful disabled state instead of a fake download.
-  resumeUrl: null,
+  // Real resume PDF served from /public/resume.
+  resumeUrl: '/resume/Ake-Sri-Ram-Resume.pdf',
   summary:
-    'I am Ake Sri Ram, a B.Tech third-year Information Technology student at Aditya College of Engineering and Technology, Surampalem. I focus on software development, problem solving, and backend engineering, and I enjoy turning ideas into practical, well-built technology projects.',
+    "I build ideas into working software. I'm Ake Sri Ram, an Information Technology student at Aditya College of Engineering and Technology, focused on Java, Spring Boot, full-stack development, DSA, and AI. I learn by building real projects, solving problems, and turning concepts into products people can actually use.",
 }
 
 /**
@@ -32,5 +33,5 @@ export const profile: Profile = {
  */
 export const profileVisibility = {
   showDateOfBirth: false,
-  showPhone: false,
+  showPhone: true,
 } as const

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { GraduationCap, MapPin, Music, Sparkles } from 'lucide-react'
+import { GraduationCap, Languages, MapPin, Music, Sparkles } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { profile } from '@/data/profile'
@@ -30,10 +30,27 @@ export function About() {
         >
           <p className="text-lg leading-relaxed text-foreground/90">{profile.summary}</p>
           <p className="mt-5 leading-relaxed text-muted-foreground">
-            I care about clean architecture, readable code, and shipping things that actually work.
-            Outside of coursework, I sharpen fundamentals through consistent problem solving and
-            hands-on projects.
+            Outside of coursework, I sharpen fundamentals through consistent problem solving on
+            competitive programming platforms and hands-on projects — with a growing focus on
+            writing clean, maintainable software.
           </p>
+
+          {profile.languages && profile.languages.length > 0 && (
+            <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border pt-5">
+              <Languages className="h-4 w-4 text-accent" aria-hidden="true" />
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                Languages
+              </span>
+              {profile.languages.map((lang) => (
+                <span
+                  key={lang}
+                  className="rounded-full border border-border px-3 py-1 text-xs text-foreground/80"
+                >
+                  {lang}
+                </span>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         <motion.div

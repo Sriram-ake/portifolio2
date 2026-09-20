@@ -1,47 +1,55 @@
 import type { SkillCategory } from '@/types'
 
 /**
- * Skills grouped by category — sourced directly from Sri Ram's resume.
- * Proficiency labels are conservative inferences (the resume lists skills,
- * not levels). Language levels are informed by HackerRank star ratings
- * (C 4★, Python 3★, Java 3★). Adjust freely.
+ * Skills grouped by category. Reflects Sri Ram's full-stack focus with
+ * Spring Boot, alongside the languages/tools from his resume.
+ * Proficiency labels are conservative — adjust freely.
  */
 export const skillCategories: SkillCategory[] = [
   {
     id: 'programming',
     title: 'Programming Languages',
     skills: [
-      { name: 'C', level: 'Working Knowledge' },
-      { name: 'Python', level: 'Working Knowledge' },
       { name: 'Java', level: 'Working Knowledge' },
+      { name: 'Python', level: 'Working Knowledge' },
+      { name: 'C', level: 'Working Knowledge' },
       { name: 'C++', level: 'Familiar' },
     ],
   },
   {
-    id: 'web',
-    title: 'Web Technologies',
+    id: 'frontend',
+    title: 'Frontend',
     skills: [
       { name: 'HTML', level: 'Working Knowledge' },
       { name: 'CSS', level: 'Working Knowledge' },
-      { name: 'JavaScript', level: 'Familiar' },
+      { name: 'JavaScript', level: 'Working Knowledge' },
     ],
   },
   {
-    id: 'frameworks',
-    title: 'Frameworks & Tools',
+    id: 'backend',
+    title: 'Backend',
     skills: [
-      { name: 'Django', level: 'Learning' },
-      { name: 'Git', level: 'Working Knowledge' },
-      { name: 'GitHub', level: 'Working Knowledge' },
-      { name: 'VS Code', level: 'Working Knowledge' },
+      { name: 'Spring Boot', level: 'Working Knowledge' },
+      { name: 'REST APIs', level: 'Working Knowledge' },
+      { name: 'Django', level: 'Familiar' },
     ],
   },
   {
     id: 'database',
     title: 'Databases',
     skills: [
-      { name: 'MySQL', level: 'Familiar' },
+      { name: 'MySQL', level: 'Working Knowledge' },
       { name: 'Google Sheets', level: 'Familiar' },
+    ],
+  },
+  {
+    id: 'tools',
+    title: 'Tools',
+    skills: [
+      { name: 'Git', level: 'Working Knowledge' },
+      { name: 'GitHub', level: 'Working Knowledge' },
+      { name: 'IntelliJ IDEA', level: 'Working Knowledge' },
+      { name: 'VS Code', level: 'Working Knowledge' },
     ],
   },
 ]

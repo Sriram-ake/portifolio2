@@ -42,9 +42,10 @@ PROFILE = Profile(
     email="akesurekha@gmail.com",
     summary=(
         "Ake Sri Ram is a B.Tech Information Technology student at Aditya College of "
-        "Engineering and Technology, Surampalem. He works across C, C++, Java and "
-        "Python, enjoys data structures and algorithmic problem solving, and builds "
-        "practical projects with web technologies, focusing on clean, dependable code."
+        "Engineering and Technology, Surampalem. He builds full-stack web applications "
+        "with Spring Boot REST APIs on the backend and HTML, CSS and JavaScript on the "
+        "frontend, and works across Java, Python and C/C++. He enjoys data structures "
+        "and algorithmic problem solving and focuses on clean, dependable code."
     ),
     social=SOCIAL,
 )
@@ -87,30 +88,39 @@ SKILLS: list[SkillCategory] = [
         ],
     ),
     SkillCategory(
-        id="web",
-        title="Web Technologies",
+        id="frontend",
+        title="Frontend",
         skills=[
             Skill(name="HTML", level="Working Knowledge"),
             Skill(name="CSS", level="Working Knowledge"),
-            Skill(name="JavaScript", level="Familiar"),
+            Skill(name="JavaScript", level="Working Knowledge"),
         ],
     ),
     SkillCategory(
-        id="frameworks",
-        title="Frameworks & Tools",
+        id="backend",
+        title="Backend",
         skills=[
-            Skill(name="Django", level="Learning"),
-            Skill(name="Git", level="Working Knowledge"),
-            Skill(name="GitHub", level="Working Knowledge"),
-            Skill(name="VS Code", level="Working Knowledge"),
+            Skill(name="Spring Boot", level="Working Knowledge"),
+            Skill(name="REST APIs", level="Working Knowledge"),
+            Skill(name="Django", level="Familiar"),
         ],
     ),
     SkillCategory(
         id="database",
         title="Databases",
         skills=[
-            Skill(name="MySQL", level="Familiar"),
+            Skill(name="MySQL", level="Working Knowledge"),
             Skill(name="Google Sheets", level="Familiar"),
+        ],
+    ),
+    SkillCategory(
+        id="tools",
+        title="Tools",
+        skills=[
+            Skill(name="Git", level="Working Knowledge"),
+            Skill(name="GitHub", level="Working Knowledge"),
+            Skill(name="IntelliJ IDEA", level="Working Knowledge"),
+            Skill(name="VS Code", level="Working Knowledge"),
         ],
     ),
 ]

@@ -24,7 +24,7 @@ export const profile: Profile = {
   // Real resume PDF served from /public/resume.
   resumeUrl: '/resume/Ake-Sri-Ram-Resume.pdf',
   summary:
-    'I am Ake Sri Ram, a B.Tech Information Technology student at Aditya College of Engineering and Technology, Surampalem. I work across C, C++, Java and Python, enjoy data structures and algorithmic problem solving, and build practical projects with web technologies. I care about writing clean, dependable code and continuously sharpening my fundamentals.',
+    'I am Ake Sri Ram, a B.Tech Information Technology student at Aditya College of Engineering and Technology, Surampalem. I build full-stack web applications — Spring Boot REST APIs on the backend with HTML, CSS and JavaScript on the frontend — and work across Java, Python and C/C++. I enjoy data structures and algorithmic problem solving, and care about writing clean, dependable code.',
 }
 
 /**

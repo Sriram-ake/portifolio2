@@ -49,19 +49,6 @@ export const projects: Project[] = [
     featured: true,
     inProgress: true,
   },
-  {
-    id: 'neural-flight-fly',
-    title: 'Neural Flight Fly',
-    description: 'A Flappy Bird–inspired game exploring neural-network-driven flight.',
-    technologies: ['Python'],
-    icon: 'plane',
-    category: 'AI / Game',
-    year: '2026',
-    githubUrl: 'https://github.com/Sriram-ake/flappy-neural-flight',
-    liveUrl: null,
-    featured: false,
-    inProgress: true,
-  },
 ]
 
 export const featuredProjects = (): Project[] => projects.filter((p) => p.featured)

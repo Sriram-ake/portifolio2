@@ -160,16 +160,6 @@ PROJECTS: list[Project] = [
         year="2026",
         github_url="https://github.com/Sriram-ake/SynapCraft",
     ),
-    Project(
-        id="neural-flight-fly",
-        title="Neural Flight Fly",
-        description="A Flappy Bird-inspired game exploring neural-network-driven flight (in progress).",
-        technologies=["Python"],
-        featured=False,
-        category="AI / Game",
-        year="2026",
-        github_url="https://github.com/Sriram-ake/flappy-neural-flight",
-    ),
 ]
 
 # Certifications from the resume (verified titles/issuers).

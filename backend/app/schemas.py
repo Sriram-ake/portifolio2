@@ -112,6 +112,28 @@ class CodingSummary(BaseModel):
     model_config = {"populate_by_name": True}
 
 
+class GitHubRepo(BaseModel):
+    name: str
+    description: str | None = None
+    language: str | None = None
+    url: str
+    homepage: str | None = None
+    stars: int = 0
+    forks: int = 0
+    updated_at: str | None = Field(default=None, serialization_alias="updatedAt")
+
+    model_config = {"populate_by_name": True}
+
+
+class GitHubReposResponse(BaseModel):
+    status: Literal["ok", "unavailable", "error"]
+    repos: list[GitHubRepo] = []
+    updated_at: str | None = Field(default=None, serialization_alias="updatedAt")
+    message: str | None = None
+
+    model_config = {"populate_by_name": True}
+
+
 class HeatmapDay(BaseModel):
     date: str  # YYYY-MM-DD
     count: int

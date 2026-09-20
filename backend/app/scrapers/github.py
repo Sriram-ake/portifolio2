@@ -6,12 +6,20 @@ import re
 
 import httpx
 
-from ..schemas import CodingPlatformStats, CodingStatItem, Heatmap, HeatmapDay
+from ..schemas import (
+    CodingPlatformStats,
+    CodingStatItem,
+    GitHubRepo,
+    GitHubReposResponse,
+    Heatmap,
+    HeatmapDay,
+)
 from .base import (
     client,
     github_headers,
     heatmap_ok,
     heatmap_unavailable,
+    now_iso,
     ok,
     unavailable,
 )
@@ -55,6 +63,41 @@ async def fetch(username: str) -> CodingPlatformStats:
         return ok(PLATFORM, username, stats)
     except (httpx.HTTPError, ValueError, KeyError):
         return unavailable(PLATFORM, username)
+
+
+async def fetch_repos(username: str, limit: int = 6) -> GitHubReposResponse:
+    """Top public, non-fork repositories via the official REST API."""
+    try:
+        async with client(headers=github_headers()) as http:
+            resp = await http.get(
+                f"{API}/users/{username}/repos",
+                params={"per_page": 100, "type": "owner", "sort": "updated"},
+            )
+            if resp.status_code == 404:
+                return GitHubReposResponse(status="unavailable", message="Profile not found.")
+            resp.raise_for_status()
+            raw = resp.json()
+
+        repos = [
+            GitHubRepo(
+                name=r["name"],
+                description=r.get("description"),
+                language=r.get("language"),
+                url=r["html_url"],
+                homepage=(r.get("homepage") or None),
+                stars=r.get("stargazers_count", 0),
+                forks=r.get("forks_count", 0),
+                updated_at=r.get("updated_at"),
+            )
+            for r in raw
+            # Skip forks and the special profile-README repo (named after the user).
+            if not r.get("fork") and r.get("name", "").lower() != username.lower()
+        ]
+        # Rank: stars first, then most-recently updated (already sorted by update).
+        repos.sort(key=lambda x: x.stars, reverse=True)
+        return GitHubReposResponse(status="ok", repos=repos[:limit], updated_at=now_iso())
+    except (httpx.HTTPError, ValueError, KeyError):
+        return GitHubReposResponse(status="unavailable", message="Could not load repositories.")
 
 
 async def fetch_heatmap(username: str) -> Heatmap:

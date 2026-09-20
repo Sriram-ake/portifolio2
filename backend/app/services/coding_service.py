@@ -6,9 +6,9 @@ import asyncio
 
 from ..cache import TTLCache
 from ..config import settings
-from ..scrapers import FETCHERS, HEATMAP_FETCHERS
+from ..scrapers import FETCHERS, HEATMAP_FETCHERS, github
 from ..scrapers.base import heatmap_unavailable, now_iso, unavailable
-from ..schemas import CodingPlatformStats, CodingSummary, Heatmap
+from ..schemas import CodingPlatformStats, CodingSummary, GitHubReposResponse, Heatmap
 
 _USERNAMES = {
     "github": settings.github_username,
@@ -21,6 +21,7 @@ _USERNAMES = {
 
 _cache: TTLCache[CodingPlatformStats] = TTLCache(settings.coding_cache_ttl)
 _heatmap_cache: TTLCache[Heatmap] = TTLCache(settings.coding_cache_ttl)
+_repos_cache: TTLCache[GitHubReposResponse] = TTLCache(settings.coding_cache_ttl)
 
 # Preserve a stable card order in the UI.
 PLATFORM_ORDER = ["github", "leetcode", "codechef", "hackerrank", "geeksforgeeks", "codeforces"]
@@ -81,6 +82,21 @@ async def get_heatmap(platform: str, *, force: bool = False) -> Heatmap:
     return result
 
 
+async def get_repos(*, force: bool = False) -> GitHubReposResponse:
+    if not force:
+        cached = _repos_cache.get("repos")
+        if cached is not None:
+            return cached
+    try:
+        result = await github.fetch_repos(settings.github_username)
+    except Exception:  # noqa: BLE001 - isolate failures
+        result = GitHubReposResponse(status="unavailable", message="Could not load repositories.")
+    if result.status == "ok":
+        _repos_cache.set("repos", result)
+    return result
+
+
 def clear_cache() -> None:
     _cache.clear()
     _heatmap_cache.clear()
+    _repos_cache.clear()

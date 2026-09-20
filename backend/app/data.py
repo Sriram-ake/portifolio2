@@ -68,10 +68,10 @@ EDUCATION: list[EducationItem] = [
     ),
     EducationItem(
         id="ssc",
-        level="SSC",
+        level="SSC — High School",
         institution="S P P P R Z P High School",
         location="Pandalapaka",
-        detail="2022",
+        detail="2017 – 2022",
         score="78.7%",
     ),
 ]
@@ -125,8 +125,60 @@ SKILLS: list[SkillCategory] = [
     ),
 ]
 
-# No projects invented — populate when available.
-PROJECTS: list[Project] = []
+# Real projects (github.com/Sriram-ake). Links are null where no public repo
+# or live demo exists yet — never fabricated.
+PROJECTS: list[Project] = [
+    Project(
+        id="calculator",
+        title="Calculator",
+        description="A responsive calculator web app with a clean, minimal UI.",
+        technologies=["JavaScript", "HTML", "CSS"],
+        featured=True,
+        category="Web",
+        year="2025",
+        github_url="https://github.com/Sriram-ake/Calculator",
+        live_url="https://sriram-ake.github.io/Calculator/",
+    ),
+    Project(
+        id="snake-game",
+        title="Snake Game",
+        description="The classic Snake game built in Java with a Swing GUI.",
+        technologies=["Java", "Swing"],
+        featured=True,
+        category="Game",
+        year="2025",
+        github_url="https://github.com/Sriram-ake/projects/tree/main/snake_game",
+        live_url=None,
+    ),
+    Project(
+        id="flappy-bird",
+        title="Flappy Bird",
+        description="A Flappy Bird-style arcade game.",
+        technologies=["Java"],
+        featured=False,
+        category="Game",
+        year="2025",
+    ),
+    Project(
+        id="neural-flight-fly",
+        title="Neural Flight Fly",
+        description="A Flappy Bird-inspired experiment exploring neural-network-driven flight (in progress).",
+        technologies=["Python"],
+        featured=False,
+        category="AI / Game",
+        year="2026",
+        github_url="https://github.com/Sriram-ake/flappy-neural-flight",
+    ),
+    Project(
+        id="snappy-craft",
+        title="Snappy Craft",
+        description="An interactive web project (in progress).",
+        technologies=["JavaScript"],
+        featured=False,
+        category="Web",
+        year="2026",
+    ),
+]
 
 # Certifications from the resume (verified titles/issuers).
 CERTIFICATIONS: list[Certification] = [

@@ -3,6 +3,7 @@ import type {
   CodingPlatformStats,
   CodingSummary,
   ContactPayload,
+  GitHubReposResponse,
   Heatmap,
 } from '@/types'
 
@@ -66,6 +67,8 @@ export const api = {
 
   heatmap: (platform: 'github' | 'leetcode') =>
     request<Heatmap>(`/api/coding/${platform}/heatmap`, undefined, 15000),
+
+  githubRepos: () => request<GitHubReposResponse>('/api/github/repos', undefined, 15000),
 
   contact: (payload: ContactPayload) =>
     request<{ ok: boolean; message: string }>('/api/contact', {

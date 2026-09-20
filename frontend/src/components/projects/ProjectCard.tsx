@@ -1,5 +1,16 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Github, Star } from 'lucide-react'
+import {
+  ArrowUpRight,
+  Bird,
+  Blocks,
+  Calculator,
+  Code2,
+  Gamepad2,
+  Github,
+  Plane,
+  Star,
+  type LucideIcon,
+} from 'lucide-react'
 import type { Project } from '@/types'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { Badge } from '@/components/ui/Badge'
@@ -11,7 +22,16 @@ interface ProjectCardProps {
   onOpen: (project: Project) => void
 }
 
+const projectIcons: Record<string, LucideIcon> = {
+  calculator: Calculator,
+  gamepad: Gamepad2,
+  bird: Bird,
+  plane: Plane,
+  blocks: Blocks,
+}
+
 export function ProjectCard({ project, onOpen }: ProjectCardProps) {
+  const Icon = (project.icon && projectIcons[project.icon]) || Code2
   return (
     <motion.div variants={fadeUp} className="h-full">
       <SpotlightCard className="flex h-full flex-col">
@@ -25,16 +45,29 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-card">
-              <span className="font-mono text-4xl font-bold text-border">
-                {project.title.charAt(0)}
-              </span>
+            <div
+              className="flex h-full w-full items-center justify-center"
+              style={{
+                background:
+                  'radial-gradient(circle at 30% 25%, rgb(var(--color-accent) / 0.16), transparent 60%), linear-gradient(135deg, rgb(var(--color-muted)), rgb(var(--color-card)))',
+              }}
+            >
+              <Icon
+                className="h-14 w-14 text-accent/70 transition-transform duration-500 group-hover:scale-110"
+                aria-hidden="true"
+              />
             </div>
           )}
           {project.featured && (
             <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-accent backdrop-blur">
               <Star className="h-3 w-3 fill-accent" aria-hidden="true" />
               Featured
+            </span>
+          )}
+          {project.inProgress && (
+            <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
+              In progress
             </span>
           )}
         </div>

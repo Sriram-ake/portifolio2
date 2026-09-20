@@ -53,3 +53,19 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
 ]
+
+export interface SoftSkill {
+  name: string
+  /** lucide icon key mapped in the Skills component. */
+  icon: 'puzzle' | 'book' | 'message' | 'users' | 'flag' | 'shuffle'
+}
+
+/** Soft skills & strengths. */
+export const softSkills: SoftSkill[] = [
+  { name: 'Problem-solving', icon: 'puzzle' },
+  { name: 'Self-learning', icon: 'book' },
+  { name: 'Communication', icon: 'message' },
+  { name: 'Team collaboration', icon: 'users' },
+  { name: 'Leadership', icon: 'flag' },
+  { name: 'Adaptability', icon: 'shuffle' },
+]

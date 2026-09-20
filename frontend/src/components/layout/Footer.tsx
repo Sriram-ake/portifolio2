@@ -25,7 +25,10 @@ export function Footer() {
             >
               {profile.name}
             </a>
-            <p className="mt-2 max-w-xs text-sm text-muted-foreground">{profile.role}</p>
+            <p className="mt-2 max-w-xs text-sm text-muted-foreground">
+              Full-stack developer building with Java, Spring Boot and modern web technologies.
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">{profile.location}</p>
             <SocialLinks className="mt-5" />
           </div>
 

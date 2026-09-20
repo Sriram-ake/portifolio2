@@ -41,9 +41,13 @@ def test_skills(client: TestClient) -> None:
     assert any(c["id"] == "programming" for c in categories)
 
 
-def test_projects_empty_not_fabricated(client: TestClient) -> None:
-    # No projects invented — stays empty until real ones are added.
-    assert client.get("/api/projects").json() == []
+def test_projects_are_real(client: TestClient) -> None:
+    # Projects come from real GitHub repos — Calculator has a verified live demo.
+    projects = client.get("/api/projects").json()
+    titles = {p["title"] for p in projects}
+    assert "Calculator" in titles
+    calc = next(p for p in projects if p["title"] == "Calculator")
+    assert calc["github_url"].startswith("https://github.com/Sriram-ake/")
 
 
 def test_certifications_from_resume(client: TestClient) -> None:

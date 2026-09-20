@@ -19,10 +19,10 @@ export const education: EducationItem[] = [
   },
   {
     id: 'ssc',
-    level: 'SSC',
+    level: 'SSC — High School',
     institution: 'S P P P R Z P High School',
     location: 'Pandalapaka',
-    detail: '2022',
+    detail: '2017 – 2022',
     score: '78.7%',
   },
 ]

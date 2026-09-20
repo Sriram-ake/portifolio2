@@ -1,9 +1,9 @@
 import type { Project } from '@/types'
 
 /**
- * Real projects only. Links point to actual repositories on
- * github.com/Sriram-ake. Where a public repo or live demo isn't available yet,
- * the field is left null rather than inventing a link.
+ * Projects backed by real repositories on github.com/Sriram-ake only.
+ * No invented projects, no fabricated live-demo links — a demo link appears
+ * only when the repo actually has one.
  */
 export const projects: Project[] = [
   {
@@ -35,39 +35,14 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 'flappy-bird',
-    title: 'Flappy Bird',
-    description: 'A Flappy Bird–style arcade game — fly through the gaps and beat your score.',
-    technologies: ['Java'],
-    icon: 'bird',
-    category: 'Game',
-    year: '2025',
-    githubUrl: null,
-    liveUrl: null,
-    featured: false,
-  },
-  {
     id: 'neural-flight-fly',
     title: 'Neural Flight Fly',
-    description: 'A Flappy Bird–inspired experiment exploring neural-network-driven flight.',
+    description: 'A Flappy Bird–inspired game exploring neural-network-driven flight.',
     technologies: ['Python'],
     icon: 'plane',
     category: 'AI / Game',
     year: '2026',
     githubUrl: 'https://github.com/Sriram-ake/flappy-neural-flight',
-    liveUrl: null,
-    featured: false,
-    inProgress: true,
-  },
-  {
-    id: 'snappy-craft',
-    title: 'Snappy Craft',
-    description: 'An interactive web project.',
-    technologies: ['JavaScript'],
-    icon: 'blocks',
-    category: 'Web',
-    year: '2026',
-    githubUrl: null,
     liveUrl: null,
     featured: false,
     inProgress: true,

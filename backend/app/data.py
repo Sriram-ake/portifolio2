@@ -150,32 +150,14 @@ PROJECTS: list[Project] = [
         live_url=None,
     ),
     Project(
-        id="flappy-bird",
-        title="Flappy Bird",
-        description="A Flappy Bird-style arcade game.",
-        technologies=["Java"],
-        featured=False,
-        category="Game",
-        year="2025",
-    ),
-    Project(
         id="neural-flight-fly",
         title="Neural Flight Fly",
-        description="A Flappy Bird-inspired experiment exploring neural-network-driven flight (in progress).",
+        description="A Flappy Bird-inspired game exploring neural-network-driven flight (in progress).",
         technologies=["Python"],
         featured=False,
         category="AI / Game",
         year="2026",
         github_url="https://github.com/Sriram-ake/flappy-neural-flight",
-    ),
-    Project(
-        id="snappy-craft",
-        title="Snappy Craft",
-        description="An interactive web project (in progress).",
-        technologies=["JavaScript"],
-        featured=False,
-        category="Web",
-        year="2026",
     ),
 ]
 

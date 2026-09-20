@@ -35,6 +35,21 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'synapcraft',
+    title: 'SynapCraft',
+    description: 'An interactive fruit-fly connectome model in Minecraft.',
+    detailedDescription:
+      'SynapCraft (NeuroCraft Fly) lets you interact with a simulated neural network inside Minecraft — inspecting its activity and exploring how changing the network changes its responses. Minecraft inputs map to modeled neural activity, which drives scripted body programs and in-game movement.',
+    technologies: ['JavaScript', 'Python', 'HTML', 'CSS'],
+    icon: 'blocks',
+    category: 'AI',
+    year: '2026',
+    githubUrl: 'https://github.com/Sriram-ake/SynapCraft',
+    liveUrl: null,
+    featured: true,
+    inProgress: true,
+  },
+  {
     id: 'neural-flight-fly',
     title: 'Neural Flight Fly',
     description: 'A Flappy Bird–inspired game exploring neural-network-driven flight.',

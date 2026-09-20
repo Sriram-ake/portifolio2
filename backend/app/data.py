@@ -151,6 +151,16 @@ PROJECTS: list[Project] = [
         live_url=None,
     ),
     Project(
+        id="synapcraft",
+        title="SynapCraft",
+        description="An interactive fruit-fly connectome model in Minecraft (in progress).",
+        technologies=["JavaScript", "Python", "HTML", "CSS"],
+        featured=True,
+        category="AI",
+        year="2026",
+        github_url="https://github.com/Sriram-ake/SynapCraft",
+    ),
+    Project(
         id="neural-flight-fly",
         title="Neural Flight Fly",
         description="A Flappy Bird-inspired game exploring neural-network-driven flight (in progress).",

@@ -147,7 +147,7 @@ PROJECTS: list[Project] = [
         featured=True,
         category="Game",
         year="2025",
-        github_url="https://github.com/Sriram-ake/projects/tree/main/snake_game",
+        github_url="https://github.com/Sriram-ake/projects",
         live_url=None,
     ),
     Project(

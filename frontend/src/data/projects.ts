@@ -30,7 +30,7 @@ export const projects: Project[] = [
     icon: 'gamepad',
     category: 'Game',
     year: '2025',
-    githubUrl: 'https://github.com/Sriram-ake/projects/tree/main/snake_game',
+    githubUrl: 'https://github.com/Sriram-ake/projects',
     liveUrl: null,
     featured: true,
   },

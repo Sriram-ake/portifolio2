@@ -2,24 +2,22 @@ import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
-type Variant = 'default' | 'hover' | 'text'
-
 /**
- * Premium custom cursor: an instant accent dot plus a smooth trailing ring
- * that morphs by context — grows over links/buttons, and becomes a caret over
- * text inputs. Pointer-only (disabled on touch) and skipped entirely under
- * prefers-reduced-motion, where the native cursor is kept.
+ * Minimal custom cursor: a single thin outline ring (no center dot) that
+ * smoothly trails the pointer and gently scales up over interactive elements.
+ * Pointer-only (disabled on touch) and skipped under prefers-reduced-motion,
+ * where the native cursor is kept.
  */
 export function CustomCursor() {
   const reduce = useReducedMotion()
   const [enabled, setEnabled] = useState(false)
-  const [variant, setVariant] = useState<Variant>('default')
+  const [hovering, setHovering] = useState(false)
   const [down, setDown] = useState(false)
 
   const x = useMotionValue(-100)
   const y = useMotionValue(-100)
-  const ringX = useSpring(x, { stiffness: 300, damping: 26, mass: 0.5 })
-  const ringY = useSpring(y, { stiffness: 300, damping: 26, mass: 0.5 })
+  const ringX = useSpring(x, { stiffness: 250, damping: 24, mass: 0.6 })
+  const ringY = useSpring(y, { stiffness: 250, damping: 24, mass: 0.6 })
 
   useEffect(() => {
     if (reduce || typeof window === 'undefined') return
@@ -33,12 +31,9 @@ export function CustomCursor() {
       y.set(e.clientY)
       const target = e.target as HTMLElement | null
       const interactive = target?.closest?.(
-        'a, button, [role="button"], summary, label, select, [data-cursor="hover"]',
+        'a, button, [role="button"], summary, label, select, input, textarea, [data-cursor="hover"]',
       )
-      const text = target?.closest?.(
-        'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, [contenteditable="true"]',
-      )
-      setVariant(text ? 'text' : interactive ? 'hover' : 'default')
+      setHovering(Boolean(interactive))
     }
     const onLeave = () => {
       x.set(-100)
@@ -62,42 +57,21 @@ export function CustomCursor() {
 
   if (!enabled) return null
 
-  const isText = variant === 'text'
-  const isHover = variant === 'hover'
-
   return (
-    <>
-      {/* Instant dot (hidden while over text, where the ring becomes a caret) */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[200] rounded-full bg-accent"
-        style={{ x, y, translateX: '-50%', translateY: '-50%' }}
-        animate={{
-          width: isText ? 2 : 6,
-          height: isText ? 22 : 6,
-          borderRadius: isText ? 2 : 999,
-          opacity: isHover ? 0 : 1,
-        }}
-        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-      />
-
-      {/* Trailing ring (hidden over text) */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[200] rounded-full border"
-        style={{ x: ringX, y: ringY, translateX: '-50%', translateY: '-50%' }}
-        animate={{
-          width: isHover ? 52 : 34,
-          height: isHover ? 52 : 34,
-          opacity: isText ? 0 : 1,
-          scale: down ? 0.85 : 1,
-          borderColor: isHover
-            ? 'rgb(var(--color-accent))'
-            : 'rgb(var(--color-accent) / 0.6)',
-          backgroundColor: isHover ? 'rgb(var(--color-accent) / 0.12)' : 'rgb(var(--color-accent) / 0)',
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-      />
-    </>
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-[200] rounded-full border-[1.5px]"
+      style={{ x: ringX, y: ringY, translateX: '-50%', translateY: '-50%' }}
+      animate={{
+        width: hovering ? 56 : 30,
+        height: hovering ? 56 : 30,
+        scale: down ? 0.8 : 1,
+        borderColor: hovering ? 'rgb(var(--color-accent))' : 'rgb(var(--color-accent) / 0.65)',
+        backgroundColor: hovering
+          ? 'rgb(var(--color-accent) / 0.08)'
+          : 'rgb(var(--color-accent) / 0)',
+      }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+    />
   )
 }

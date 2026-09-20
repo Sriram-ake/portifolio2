@@ -140,25 +140,15 @@ PROJECTS: list[Project] = [
         live_url="https://sriram-ake.github.io/Calculator/",
     ),
     Project(
-        id="snake-game",
-        title="Snake Game",
-        description="The classic Snake game built in Java with a Swing GUI.",
-        technologies=["Java", "Swing"],
-        featured=True,
-        category="Game",
-        year="2025",
-        github_url="https://github.com/Sriram-ake/projects",
-        live_url=None,
-    ),
-    Project(
         id="synapcraft",
         title="SynapCraft",
-        description="An interactive fruit-fly connectome model in Minecraft (in progress).",
+        description="An interactive fruit-fly connectome model in Minecraft.",
         technologies=["JavaScript", "Python", "HTML", "CSS"],
         featured=True,
         category="AI",
         year="2026",
         github_url="https://github.com/Sriram-ake/SynapCraft",
+        live_url="https://sriram-ake.github.io/SynapCraft/",
     ),
 ]
 

@@ -21,20 +21,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 'snake-game',
-    title: 'Snake Game',
-    description: 'The classic Snake game built in Java with a Swing GUI.',
-    detailedDescription:
-      'A desktop Snake game implemented in Java using Swing — grid-based movement, growth on eating, collision detection and score tracking.',
-    technologies: ['Java', 'Swing'],
-    icon: 'gamepad',
-    category: 'Game',
-    year: '2025',
-    githubUrl: 'https://github.com/Sriram-ake/projects',
-    liveUrl: null,
-    featured: true,
-  },
-  {
     id: 'synapcraft',
     title: 'SynapCraft',
     description: 'An interactive fruit-fly connectome model in Minecraft.',
@@ -45,9 +31,8 @@ export const projects: Project[] = [
     category: 'AI',
     year: '2026',
     githubUrl: 'https://github.com/Sriram-ake/SynapCraft',
-    liveUrl: null,
+    liveUrl: 'https://sriram-ake.github.io/SynapCraft/',
     featured: true,
-    inProgress: true,
   },
 ]
 

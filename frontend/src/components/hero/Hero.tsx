@@ -129,8 +129,8 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: interactive visual */}
-        <div className="hidden lg:block">
+        {/* Right: portrait visual */}
+        <div className="mt-4 lg:mt-0">
           <HeroVisual />
         </div>
       </div>

@@ -62,10 +62,10 @@ export interface SoftSkill {
 
 /** Soft skills & strengths. */
 export const softSkills: SoftSkill[] = [
-  { name: 'Problem-solving', icon: 'puzzle' },
-  { name: 'Self-learning', icon: 'book' },
-  { name: 'Communication', icon: 'message' },
-  { name: 'Team collaboration', icon: 'users' },
-  { name: 'Leadership', icon: 'flag' },
-  { name: 'Adaptability', icon: 'shuffle' },
+  { name: 'Analytical Thinking', icon: 'puzzle' },
+  { name: 'Continuous Learning', icon: 'book' },
+  { name: 'Clear Communication', icon: 'message' },
+  { name: 'Collaborative Teamwork', icon: 'users' },
+  { name: 'Ownership & Initiative', icon: 'flag' },
+  { name: 'Adaptive Mindset', icon: 'shuffle' },
 ]

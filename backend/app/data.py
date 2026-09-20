@@ -41,11 +41,10 @@ PROFILE = Profile(
     languages=["English", "Telugu", "Hindi (Basic)"],
     email="akesurekha@gmail.com",
     summary=(
-        "Ake Sri Ram is a B.Tech Information Technology student at Aditya College of "
-        "Engineering and Technology, Surampalem. He builds full-stack web applications "
-        "with Spring Boot REST APIs on the backend and HTML, CSS and JavaScript on the "
-        "frontend, and works across Java, Python and C/C++. He enjoys data structures "
-        "and algorithmic problem solving and focuses on clean, dependable code."
+        "Ake Sri Ram builds ideas into working software. He is an Information Technology "
+        "student at Aditya College of Engineering and Technology, focused on Java, "
+        "Spring Boot, full-stack development, DSA, and AI. He learns by building real "
+        "projects, solving problems, and turning concepts into usable products."
     ),
     social=SOCIAL,
 )

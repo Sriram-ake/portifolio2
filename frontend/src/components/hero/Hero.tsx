@@ -80,8 +80,8 @@ export function Hero() {
             transition={{ delay: 0.7, duration: 0.5 }}
             className="mt-6 max-w-prose leading-relaxed text-muted-foreground"
           >
-            Full-stack developer and problem solver — building web apps with Spring Boot and
-            modern frontends, with a focus on clean, well-crafted software.
+            I build ideas into working software — full-stack apps with Java, Spring Boot and modern
+            frontends, backed by a serious focus on DSA and AI.
           </motion.p>
 
           {/* CTAs */}

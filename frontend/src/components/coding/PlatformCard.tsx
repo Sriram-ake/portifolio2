@@ -3,6 +3,7 @@ import type { CodingPlatformStats } from '@/types'
 import { codingPlatforms } from '@/data/codingPlatforms'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { BrandIcon, type BrandKey } from '@/components/ui/BrandIcon'
+import { BRAND_COLORS } from '@/lib/brandColors'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { cn } from '@/lib/utils'
 
@@ -35,7 +36,11 @@ export function PlatformCard({ data }: PlatformCardProps) {
       <div className="relative flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-foreground">
-            <BrandIcon name={data.platform as BrandKey} size={20} />
+            <BrandIcon
+              name={data.platform as BrandKey}
+              size={20}
+              color={BRAND_COLORS[data.platform as BrandKey]}
+            />
           </span>
           <div>
             <h3 className="font-display font-semibold">{data.displayName}</h3>

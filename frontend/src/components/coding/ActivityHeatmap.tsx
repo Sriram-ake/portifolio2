@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { Heatmap, HeatmapDay } from '@/types'
 import { BrandIcon, type BrandKey } from '@/components/ui/BrandIcon'
+import { BRAND_COLORS } from '@/lib/brandColors'
 import { formatDate } from '@/lib/utils'
 
 interface ActivityHeatmapProps {
@@ -67,7 +68,11 @@ export function ActivityHeatmap({ data }: ActivityHeatmapProps) {
     <div className="rounded-card border border-border bg-card p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <BrandIcon name={data.platform as BrandKey} size={18} />
+          <BrandIcon
+            name={data.platform as BrandKey}
+            size={18}
+            color={BRAND_COLORS[data.platform as BrandKey]}
+          />
           <h3 className="font-display font-semibold">{data.displayName} activity</h3>
         </div>
         <p className="font-mono text-sm text-muted-foreground">

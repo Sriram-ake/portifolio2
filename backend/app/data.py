@@ -55,7 +55,7 @@ EDUCATION: list[EducationItem] = [
         level="B.Tech — Information Technology",
         institution="Aditya College of Engineering and Technology",
         location="Surampalem",
-        detail="3rd Year",
+        detail="3rd Year · 2024 – Present",
         score="CGPA 8.36",
     ),
     EducationItem(

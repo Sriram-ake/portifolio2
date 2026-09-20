@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   ArrowUpRight,
@@ -16,6 +17,7 @@ import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { fadeUp } from '@/animations/variants'
+import { projectThumbnail } from '@/lib/utils'
 
 interface ProjectCardProps {
   project: Project
@@ -32,17 +34,21 @@ const projectIcons: Record<string, LucideIcon> = {
 
 export function ProjectCard({ project, onOpen }: ProjectCardProps) {
   const Icon = (project.icon && projectIcons[project.icon]) || Code2
+  const [imgFailed, setImgFailed] = useState(false)
+  const thumb = projectThumbnail(project)
+
   return (
     <motion.div variants={fadeUp} className="h-full">
       <SpotlightCard className="flex h-full flex-col">
         {/* Cover */}
         <div className="relative aspect-[16/10] overflow-hidden rounded-t-card bg-muted">
-          {project.image ? (
+          {thumb && !imgFailed ? (
             <img
-              src={project.image}
+              src={thumb}
               alt={`${project.title} preview`}
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onError={() => setImgFailed(true)}
+              className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div

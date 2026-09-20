@@ -3,6 +3,7 @@ import type { Project } from '@/types'
 import { Modal } from '@/components/ui/Modal'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
+import { projectThumbnail } from '@/lib/utils'
 
 interface ProjectModalProps {
   project: Project | null
@@ -25,9 +26,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     <Modal open={project !== null} onClose={onClose} title={project?.title}>
       {project && (
         <div className="space-y-6">
-          {project.image && (
+          {projectThumbnail(project) && (
             <img
-              src={project.image}
+              src={projectThumbnail(project)!}
               alt={`${project.title} preview`}
               className="w-full rounded-lg border border-border"
             />

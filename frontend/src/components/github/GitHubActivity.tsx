@@ -7,7 +7,7 @@ import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { Badge } from '@/components/ui/Badge'
 import { useGitHubRepos } from '@/hooks/useGitHubRepos'
 import { socialLinks } from '@/data/socialLinks'
-import { formatDate } from '@/lib/utils'
+import { formatDate, githubOgImage } from '@/lib/utils'
 import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
 
 export function GitHubActivity() {
@@ -57,24 +57,44 @@ export function GitHubActivity() {
         >
           {repos.map((repo) => (
             <motion.div key={repo.name} variants={fadeUp}>
-              <SpotlightCard className="flex h-full flex-col p-6">
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 font-mono text-xs text-accent">
-                    <Code2 className="h-3.5 w-3.5" aria-hidden="true" />
-                    {repo.language ?? 'Code'}
-                  </span>
-                  <a
-                    href={repo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open ${repo.name} on GitHub`}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-accent"
-                  >
-                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </a>
-                </div>
+              <SpotlightCard className="flex h-full flex-col">
+                {/* Repo preview image (GitHub's Open Graph card) */}
+                <a
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${repo.name} on GitHub`}
+                  className="block overflow-hidden rounded-t-card border-b border-border bg-muted"
+                >
+                  <img
+                    src={githubOgImage(repo.url) ?? ''}
+                    alt={`${repo.name} repository preview`}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                    }}
+                    className="aspect-[2/1] w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+                  />
+                </a>
 
-                <h3 className="mt-3 font-display text-lg font-semibold">{repo.name}</h3>
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 font-mono text-xs text-accent">
+                      <Code2 className="h-3.5 w-3.5" aria-hidden="true" />
+                      {repo.language ?? 'Code'}
+                    </span>
+                    <a
+                      href={repo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open ${repo.name} on GitHub`}
+                      className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-accent"
+                    >
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </div>
+
+                  <h3 className="mt-3 font-display text-lg font-semibold">{repo.name}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                   {repo.description ?? 'Public GitHub repository.'}
                 </p>
@@ -105,6 +125,7 @@ export function GitHubActivity() {
                   {repo.updatedAt && (
                     <Badge>{formatDate(repo.updatedAt.slice(0, 10))}</Badge>
                   )}
+                  </div>
                 </div>
               </SpotlightCard>
             </motion.div>

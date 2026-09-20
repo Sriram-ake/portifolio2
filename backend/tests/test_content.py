@@ -41,7 +41,14 @@ def test_skills(client: TestClient) -> None:
     assert any(c["id"] == "programming" for c in categories)
 
 
-def test_projects_and_certs_empty_not_fabricated(client: TestClient) -> None:
-    # No fake data — both start empty.
+def test_projects_empty_not_fabricated(client: TestClient) -> None:
+    # No projects invented — stays empty until real ones are added.
     assert client.get("/api/projects").json() == []
-    assert client.get("/api/certifications").json() == []
+
+
+def test_certifications_from_resume(client: TestClient) -> None:
+    # Certifications come from the resume (verified), not fabricated.
+    certs = client.get("/api/certifications").json()
+    titles = {c["title"] for c in certs}
+    assert "C Programming" in titles
+    assert any(c["issuer"] == "Cisco" for c in certs)

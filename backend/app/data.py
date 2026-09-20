@@ -38,12 +38,13 @@ PROFILE = Profile(
     year="3rd Year",
     cgpa="8.36",
     interests=["Listening to music"],
+    languages=["English", "Telugu", "Hindi (Basic)"],
     email="akesurekha@gmail.com",
     summary=(
-        "Ake Sri Ram is a B.Tech third-year Information Technology student at Aditya "
-        "College of Engineering and Technology, Surampalem. He focuses on software "
-        "development, problem solving, and backend engineering, and enjoys turning "
-        "ideas into practical, well-built technology projects."
+        "Ake Sri Ram is a B.Tech Information Technology student at Aditya College of "
+        "Engineering and Technology, Surampalem. He works across C, C++, Java and "
+        "Python, enjoys data structures and algorithmic problem solving, and builds "
+        "practical projects with web technologies, focusing on clean, dependable code."
     ),
     social=SOCIAL,
 )
@@ -57,67 +58,97 @@ EDUCATION: list[EducationItem] = [
         detail="3rd Year",
         score="CGPA 8.36",
     ),
-    EducationItem(id="intermediate", level="Intermediate", institution="Gamyam Junior College"),
+    EducationItem(
+        id="intermediate",
+        level="Intermediate — MPC",
+        institution="Gamyam Junior College",
+        detail="2022 – 2024",
+        score="93.8%",
+    ),
     EducationItem(
         id="ssc",
         level="SSC",
         institution="S P P P R Z P High School",
         location="Pandalapaka",
+        detail="2022",
+        score="78.7%",
     ),
 ]
 
 SKILLS: list[SkillCategory] = [
     SkillCategory(
         id="programming",
-        title="Programming",
+        title="Programming Languages",
         skills=[
-            Skill(name="Java", level="Working Knowledge"),
+            Skill(name="C", level="Working Knowledge"),
             Skill(name="Python", level="Working Knowledge"),
-            Skill(name="C", level="Familiar"),
+            Skill(name="Java", level="Working Knowledge"),
             Skill(name="C++", level="Familiar"),
         ],
     ),
     SkillCategory(
-        id="frontend",
-        title="Frontend",
+        id="web",
+        title="Web Technologies",
         skills=[
             Skill(name="HTML", level="Working Knowledge"),
             Skill(name="CSS", level="Working Knowledge"),
             Skill(name="JavaScript", level="Familiar"),
-            Skill(name="React", level="Learning"),
-            Skill(name="TypeScript", level="Learning"),
         ],
     ),
     SkillCategory(
-        id="backend",
-        title="Backend",
+        id="frameworks",
+        title="Frameworks & Tools",
         skills=[
-            Skill(name="Python", level="Working Knowledge"),
-            Skill(name="FastAPI", level="Learning"),
-            Skill(name="Spring Boot", level="Learning"),
+            Skill(name="Django", level="Learning"),
+            Skill(name="Git", level="Working Knowledge"),
+            Skill(name="GitHub", level="Working Knowledge"),
+            Skill(name="VS Code", level="Working Knowledge"),
         ],
     ),
     SkillCategory(
         id="database",
-        title="Database",
+        title="Databases",
         skills=[
-            Skill(name="SQL", level="Working Knowledge"),
             Skill(name="MySQL", level="Familiar"),
-            Skill(name="PostgreSQL", level="Learning"),
-        ],
-    ),
-    SkillCategory(
-        id="tools",
-        title="Tools",
-        skills=[
-            Skill(name="Git", level="Working Knowledge"),
-            Skill(name="GitHub", level="Working Knowledge"),
-            Skill(name="IntelliJ IDEA", level="Familiar"),
-            Skill(name="VS Code", level="Working Knowledge"),
+            Skill(name="Google Sheets", level="Familiar"),
         ],
     ),
 ]
 
-# No invented content. Populate with real data when available.
+# No projects invented — populate when available.
 PROJECTS: list[Project] = []
-CERTIFICATIONS: list[Certification] = []
+
+# Certifications from the resume (verified titles/issuers).
+CERTIFICATIONS: list[Certification] = [
+    Certification(
+        id="cisco-c",
+        title="C Programming",
+        issuer="Cisco",
+        issue_date="",
+        category="Programming",
+    ),
+    Certification(
+        id="oracle-ai",
+        title="Artificial Intelligence Certification",
+        issuer="Oracle",
+        issue_date="",
+        category="AI",
+    ),
+    Certification(
+        id="html-css",
+        title="HTML and CSS",
+        issuer="",
+        issue_date="",
+        category="Web",
+    ),
+]
+
+# Achievements from the resume (verified). Used to ground the AI assistant.
+ACHIEVEMENTS: list[str] = [
+    "4-star rating in C on HackerRank",
+    "3-star rating in Python on HackerRank",
+    "3-star rating in Java on HackerRank",
+    "93.8% aggregate in Intermediate (MPC)",
+    "78.7% aggregate in SSC (10th grade)",
+    "Regularly practices data structures and algorithmic problem solving",
+]

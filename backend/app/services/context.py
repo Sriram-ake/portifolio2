@@ -55,9 +55,16 @@ def build_context() -> str:
         else "No projects have been published on the portfolio yet."
     )
     certs = (
-        "\n".join(f"- {c.title} — {c.issuer}" for c in data.CERTIFICATIONS)
+        "\n".join(
+            f"- {c.title}" + (f" — {c.issuer}" if c.issuer else "") for c in data.CERTIFICATIONS
+        )
         if data.CERTIFICATIONS
         else "No certifications have been published on the portfolio yet."
+    )
+    achievements = (
+        "\n".join(f"- {a}" for a in data.ACHIEVEMENTS)
+        if data.ACHIEVEMENTS
+        else "No achievements listed yet."
     )
     return f"""PROFILE
 Name: {p.name}
@@ -79,6 +86,12 @@ PROJECTS
 
 CERTIFICATIONS
 {certs}
+
+ACHIEVEMENTS
+{achievements}
+
+LANGUAGES
+{", ".join(p.languages)}
 
 CODING PLATFORMS & SOCIAL LINKS
 {_social_text()}
@@ -139,8 +152,16 @@ def fallback_answer(question: str) -> str:
                 f"- {c.title} — {c.issuer}" for c in data.CERTIFICATIONS
             )
         return "No certifications have been published on the portfolio yet."
-    if has("contact", "email", "reach", "hire", "connect"):
-        return f"You can reach {p.name} by email at **{p.email}**, or via the contact form on this site."
+    if has("achievement", "rating", "star", "accomplish", "award", "rank"):
+        if data.ACHIEVEMENTS:
+            return "Here are his achievements:\n\n" + "\n".join(
+                f"- {a}" for a in data.ACHIEVEMENTS
+            )
+    if has("contact", "email", "reach", "hire", "connect", "phone", "number", "call"):
+        return (
+            f"You can reach {p.name} by email at **{p.email}** or by phone at "
+            "**+91 98493 26138**, or use the contact form on this site."
+        )
     if has("github"):
         return f"His GitHub profile: {p.social.github}"
     if has("leetcode"):

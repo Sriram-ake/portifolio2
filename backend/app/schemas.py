@@ -33,6 +33,7 @@ class Profile(BaseModel):
     year: str
     cgpa: str
     interests: list[str]
+    languages: list[str] = []
     email: str
     summary: str
     social: SocialLinks

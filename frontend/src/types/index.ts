@@ -24,6 +24,9 @@ export interface Profile {
   interests: string[]
   email: string
   phone: string
+  languages?: string[]
+  /** Optional profile photo served from /public. */
+  avatarUrl?: string | null
   /** Never exposed publicly unless explicitly enabled via config. */
   dateOfBirth?: string
   resumeUrl: string | null

@@ -1,6 +1,6 @@
-import { Mail } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import { navItems } from '@/lib/navigation'
-import { profile } from '@/data/profile'
+import { profile, profileVisibility } from '@/data/profile'
 import { SocialLinks } from '@/components/ui/SocialLinks'
 
 export function Footer() {
@@ -57,11 +57,20 @@ export function Footer() {
             </h2>
             <a
               href={`mailto:${profile.email}`}
-              className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
+              className="mt-4 flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
               {profile.email}
             </a>
+            {profileVisibility.showPhone && (
+              <a
+                href={`tel:${profile.phone.replace(/\s/g, '')}`}
+                className="mt-2 flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {profile.phone}
+              </a>
+            )}
           </div>
         </div>
 

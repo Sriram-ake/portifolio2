@@ -1,6 +1,6 @@
 import type { EducationItem } from '@/types'
 
-/** Education timeline, most recent first. Only verified details included. */
+/** Education timeline, most recent first. Sourced from Sri Ram's resume. */
 export const education: EducationItem[] = [
   {
     id: 'btech',
@@ -12,13 +12,17 @@ export const education: EducationItem[] = [
   },
   {
     id: 'intermediate',
-    level: 'Intermediate',
+    level: 'Intermediate — MPC',
     institution: 'Gamyam Junior College',
+    detail: '2022 – 2024',
+    score: '93.8%',
   },
   {
     id: 'ssc',
     level: 'SSC',
     institution: 'S P P P R Z P High School',
     location: 'Pandalapaka',
+    detail: '2022',
+    score: '78.7%',
   },
 ]

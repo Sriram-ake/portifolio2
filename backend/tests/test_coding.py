@@ -51,6 +51,31 @@ def test_unknown_platform_404(client: TestClient) -> None:
     assert resp.status_code == 404
 
 
+def test_heatmap_level_bucketing() -> None:
+    assert base.level_from_count(0) == 0
+    assert base.level_from_count(1) == 1
+    assert base.level_from_count(4) == 2
+    assert base.level_from_count(100) == 4
+
+
+def test_heatmap_unsupported_platform_404(client: TestClient) -> None:
+    # Only github and leetcode expose heatmaps.
+    resp = client.get("/api/coding/codechef/heatmap")
+    assert resp.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_heatmap_failure_isolated(monkeypatch: pytest.MonkeyPatch) -> None:
+    async def boom(_username: str):
+        raise RuntimeError("down")
+
+    monkeypatch.setitem(coding_service.HEATMAP_FETCHERS, "github", boom)
+    coding_service.clear_cache()
+    result = await coding_service.get_heatmap("github", force=True)
+    assert result.status in {"unavailable", "error"}
+    assert result.days == []
+
+
 def test_coding_summary_serialization(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
     async def fine(username: str):
         return base.ok("github", username, [CodingStatItem(label="Repositories", value=1)])

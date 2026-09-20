@@ -19,4 +19,10 @@ FETCHERS = {
     "codeforces": codeforces.fetch,
 }
 
-__all__ = ["FETCHERS"]
+# Platforms that expose a daily contribution/submission calendar.
+HEATMAP_FETCHERS = {
+    "github": github.fetch_heatmap,
+    "leetcode": leetcode.fetch_heatmap,
+}
+
+__all__ = ["FETCHERS", "HEATMAP_FETCHERS"]

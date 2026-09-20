@@ -132,6 +132,7 @@ and `POST /api/contact`.
 | GET | `/api/certifications` | Certifications |
 | GET | `/api/coding` | Aggregated stats (all platforms) |
 | GET | `/api/coding/{platform}` | Single platform stats |
+| GET | `/api/coding/{platform}/heatmap` | Daily activity calendar (`github`, `leetcode`) |
 | POST | `/api/chat` | Streaming assistant response |
 | POST | `/api/contact` | Send a contact message |
 

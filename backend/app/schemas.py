@@ -111,6 +111,25 @@ class CodingSummary(BaseModel):
     model_config = {"populate_by_name": True}
 
 
+class HeatmapDay(BaseModel):
+    date: str  # YYYY-MM-DD
+    count: int
+    level: int  # 0-4 intensity bucket
+
+
+class Heatmap(BaseModel):
+    platform: str
+    display_name: str = Field(serialization_alias="displayName")
+    profile_url: str = Field(serialization_alias="profileUrl")
+    status: Literal["ok", "unavailable", "error"]
+    total: int = 0
+    days: list[HeatmapDay] = []
+    updated_at: str | None = Field(default=None, serialization_alias="updatedAt")
+    message: str | None = None
+
+    model_config = {"populate_by_name": True}
+
+
 # --- Chat ---
 class ChatMessageIn(BaseModel):
     role: Literal["user", "assistant"]

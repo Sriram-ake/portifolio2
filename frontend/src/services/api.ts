@@ -3,6 +3,7 @@ import type {
   CodingPlatformStats,
   CodingSummary,
   ContactPayload,
+  Heatmap,
 } from '@/types'
 
 /**
@@ -62,6 +63,9 @@ export const api = {
 
   codingPlatform: (platform: CodingPlatformKey) =>
     request<CodingPlatformStats>(`/api/coding/${platform}`),
+
+  heatmap: (platform: 'github' | 'leetcode') =>
+    request<Heatmap>(`/api/coding/${platform}/heatmap`, undefined, 15000),
 
   contact: (payload: ContactPayload) =>
     request<{ ok: boolean; message: string }>('/api/contact', {

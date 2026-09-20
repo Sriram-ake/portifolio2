@@ -115,6 +115,23 @@ export interface CodingSummary {
   updatedAt: string | null
 }
 
+export interface HeatmapDay {
+  date: string
+  count: number
+  level: number
+}
+
+export interface Heatmap {
+  platform: CodingPlatformKey
+  displayName: string
+  profileUrl: string
+  status: 'ok' | 'unavailable' | 'error'
+  total: number
+  days: HeatmapDay[]
+  updatedAt: string | null
+  message?: string
+}
+
 export interface Achievement {
   id: string
   title: string

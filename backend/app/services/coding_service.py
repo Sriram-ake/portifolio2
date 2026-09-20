@@ -6,9 +6,9 @@ import asyncio
 
 from ..cache import TTLCache
 from ..config import settings
-from ..scrapers import FETCHERS
-from ..scrapers.base import now_iso, unavailable
-from ..schemas import CodingPlatformStats, CodingSummary
+from ..scrapers import FETCHERS, HEATMAP_FETCHERS
+from ..scrapers.base import heatmap_unavailable, now_iso, unavailable
+from ..schemas import CodingPlatformStats, CodingSummary, Heatmap
 
 _USERNAMES = {
     "github": settings.github_username,
@@ -20,6 +20,7 @@ _USERNAMES = {
 }
 
 _cache: TTLCache[CodingPlatformStats] = TTLCache(settings.coding_cache_ttl)
+_heatmap_cache: TTLCache[Heatmap] = TTLCache(settings.coding_cache_ttl)
 
 # Preserve a stable card order in the UI.
 PLATFORM_ORDER = ["github", "leetcode", "codechef", "hackerrank", "geeksforgeeks", "codeforces"]
@@ -60,5 +61,26 @@ async def get_summary(*, force: bool = False) -> CodingSummary:
     return CodingSummary(platforms=ordered, updated_at=now_iso())
 
 
+HEATMAP_PLATFORMS = list(HEATMAP_FETCHERS.keys())
+
+
+async def get_heatmap(platform: str, *, force: bool = False) -> Heatmap:
+    if platform not in HEATMAP_FETCHERS:
+        raise KeyError(platform)
+    username = _USERNAMES[platform]
+    if not force:
+        cached = _heatmap_cache.get(platform)
+        if cached is not None:
+            return cached
+    try:
+        result = await HEATMAP_FETCHERS[platform](username)
+    except Exception:  # noqa: BLE001 - isolate failures
+        result = heatmap_unavailable(platform, username)
+    if result.status == "ok":
+        _heatmap_cache.set(platform, result)
+    return result
+
+
 def clear_cache() -> None:
     _cache.clear()
+    _heatmap_cache.clear()

@@ -4,15 +4,19 @@ import { Section } from '@/components/ui/Section'
 import { StateBlock } from '@/components/ui/StateBlock'
 import { Button } from '@/components/ui/Button'
 import { useCoding } from '@/hooks/useCoding'
+import { useHeatmaps } from '@/hooks/useHeatmaps'
 import { staggerContainer, fadeUp, viewportOnce } from '@/animations/variants'
 import { PlatformCard } from './PlatformCard'
 import { BreakdownChart } from './BreakdownChart'
+import { ActivityHeatmap } from './ActivityHeatmap'
 
 export function Coding() {
   const { data, loading, error, refetch } = useCoding()
+  const { heatmaps, loading: heatmapsLoading } = useHeatmaps()
 
   const platforms = data?.platforms ?? []
   const chartsAvailable = platforms.filter((p) => p.status === 'ok' && p.breakdown?.length)
+  const activeHeatmaps = heatmaps.filter((h) => h.status === 'ok' && h.days.length > 0)
 
   return (
     <Section
@@ -58,6 +62,19 @@ export function Coding() {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Activity heatmaps (GitHub contributions + LeetCode submissions) */}
+          {(activeHeatmaps.length > 0 || heatmapsLoading) && (
+            <div className="mt-6 space-y-5">
+              {heatmapsLoading && activeHeatmaps.length === 0 ? (
+                <div className="rounded-card border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-muted-foreground">
+                  Loading activity heatmaps…
+                </div>
+              ) : (
+                activeHeatmaps.map((h) => <ActivityHeatmap key={h.platform} data={h} />)
+              )}
+            </div>
+          )}
 
           {chartsAvailable.length > 0 && (
             <div className="mt-6 grid gap-5 md:grid-cols-2">

@@ -20,6 +20,7 @@ class SocialLinks(BaseModel):
     geeksforgeeks: str
     hackerrank: str
     codeforces: str
+    codolio: str | None = None
     instagram: str | None = None
 
 

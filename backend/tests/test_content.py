@@ -19,8 +19,9 @@ def test_profile(client: TestClient) -> None:
     body = resp.json()
     assert body["name"] == "Ake Sri Ram"
     assert body["cgpa"] == "8.36"
-    # Instagram must remain null (never invented).
-    assert body["social"]["instagram"] is None
+    # Instagram + Codolio are the user's real, provided profiles.
+    assert body["social"]["instagram"] == "https://www.instagram.com/pspk_ram_42/"
+    assert "codolio.com" in body["social"]["codolio"]
     # Sensitive fields must not be exposed.
     assert "dateOfBirth" not in body
     assert "phone" not in body

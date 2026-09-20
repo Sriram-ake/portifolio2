@@ -9,6 +9,7 @@ import {
   SiLeetcode,
 } from 'react-icons/si'
 import { FaLinkedinIn } from 'react-icons/fa6'
+import { Boxes, type LucideIcon } from 'lucide-react'
 
 export type BrandKey =
   | 'github'
@@ -18,10 +19,14 @@ export type BrandKey =
   | 'geeksforgeeks'
   | 'hackerrank'
   | 'codeforces'
+  | 'codolio'
   | 'instagram'
 
-/** Accurate brand marks from Simple Icons (react-icons), one consistent set. */
-const icons: Record<BrandKey, IconType> = {
+/**
+ * Accurate brand marks from Simple Icons (react-icons), one consistent set.
+ * Codolio has no official logo, so it uses a neutral lucide "aggregate" glyph.
+ */
+const icons: Record<BrandKey, IconType | LucideIcon> = {
   github: SiGithub,
   linkedin: FaLinkedinIn,
   leetcode: SiLeetcode,
@@ -29,6 +34,7 @@ const icons: Record<BrandKey, IconType> = {
   geeksforgeeks: SiGeeksforgeeks,
   hackerrank: SiHackerrank,
   codeforces: SiCodeforces,
+  codolio: Boxes,
   instagram: SiInstagram,
 }
 

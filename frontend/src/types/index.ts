@@ -8,7 +8,8 @@ export interface SocialLinks {
   geeksforgeeks: string
   hackerrank: string
   codeforces: string
-  /** Kept null until the real profile URL is provided. Never invent it. */
+  /** Coding-profile aggregator (total problems solved across platforms). */
+  codolio: string | null
   instagram: string | null
 }
 

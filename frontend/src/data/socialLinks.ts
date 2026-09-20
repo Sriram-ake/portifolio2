@@ -13,7 +13,8 @@ export const socialLinks: SocialLinks = {
   geeksforgeeks: 'https://www.geeksforgeeks.org/user/akesriram/',
   hackerrank: 'https://www.hackerrank.com/profile/akesurekha',
   codeforces: 'https://codeforces.com/profile/Sriram_2007',
-  instagram: null,
+  codolio: 'https://codolio.com/profile/sriram1108',
+  instagram: 'https://www.instagram.com/pspk_ram_42/',
 }
 
 export interface SocialLinkMeta {
@@ -31,4 +32,6 @@ export const socialLinkList: SocialLinkMeta[] = [
   { key: 'geeksforgeeks', label: 'GeeksforGeeks', url: socialLinks.geeksforgeeks },
   { key: 'hackerrank', label: 'HackerRank', url: socialLinks.hackerrank },
   { key: 'codeforces', label: 'Codeforces', url: socialLinks.codeforces },
+  { key: 'codolio', label: 'Codolio', url: socialLinks.codolio },
+  { key: 'instagram', label: 'Instagram', url: socialLinks.instagram },
 ]

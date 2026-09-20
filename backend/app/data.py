@@ -25,7 +25,8 @@ SOCIAL = SocialLinks(
     geeksforgeeks="https://www.geeksforgeeks.org/user/akesriram/",
     hackerrank="https://www.hackerrank.com/profile/akesurekha",
     codeforces="https://codeforces.com/profile/Sriram_2007",
-    instagram=None,
+    codolio="https://codolio.com/profile/sriram1108",
+    instagram="https://www.instagram.com/pspk_ram_42/",
 )
 
 PROFILE = Profile(

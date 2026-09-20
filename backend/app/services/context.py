@@ -43,8 +43,10 @@ def _social_text() -> str:
         "GeeksforGeeks": s.geeksforgeeks,
         "HackerRank": s.hackerrank,
         "Codeforces": s.codeforces,
+        "Codolio (aggregated problem-solving stats)": s.codolio,
+        "Instagram": s.instagram,
     }
-    return "\n".join(f"- {k}: {v}" for k, v in entries.items())
+    return "\n".join(f"- {k}: {v}" for k, v in entries.items() if v)
 
 
 def build_context() -> str:
@@ -176,6 +178,10 @@ def fallback_answer(question: str) -> str:
         return f"His GeeksforGeeks profile: {p.social.geeksforgeeks}"
     if has("linkedin"):
         return f"His LinkedIn profile: {p.social.linkedin}"
+    if has("codolio") and p.social.codolio:
+        return f"His aggregated problem-solving stats (Codolio): {p.social.codolio}"
+    if has("instagram") and p.social.instagram:
+        return f"His Instagram: {p.social.instagram}"
     if has("coding", "platform", "competitive"):
         return "He's active on these coding platforms:\n\n" + _social_text()
     if has("interest", "hobby", "music"):

@@ -1,0 +1,53 @@
+# Render Blueprint — deploys the FastAPI backend + the Vite static frontend.
+# Docs: https://render.com/docs/blueprint-spec
+#
+# After the first deploy:
+#   1. Copy the backend service URL (e.g. https://akesriram-api.onrender.com)
+#   2. Set the frontend's VITE_API_BASE_URL env var to that URL, and the
+#      backend's FRONTEND_URL to the static site URL, then redeploy.
+#   (These can't reference each other automatically because the frontend needs
+#    the value at build time.)
+
+services:
+  # ---------- Backend (FastAPI) ----------
+  - type: web
+    name: akesriram-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+      - key: FRONTEND_URL
+        sync: false          # set to your static site URL after first deploy
+      - key: GITHUB_TOKEN
+        sync: false          # optional
+      - key: NVIDIA_NIM_API_KEY
+        sync: false          # optional (fallback used if empty)
+      - key: NVIDIA_NIM_MODEL
+        value: meta/llama-3.1-8b-instruct
+      - key: BREVO_API_KEY
+        sync: false          # optional
+      - key: BREVO_SENDER_EMAIL
+        sync: false
+      - key: CONTACT_RECEIVER_EMAIL
+        value: akesurekha@gmail.com
+
+  # ---------- Frontend (Vite static build) ----------
+  - type: web
+    name: akesriram-portfolio
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false          # set to the backend URL after first deploy
+    routes:
+      # SPA fallback so any path serves index.html
+      - type: rewrite
+        source: /*
+        destination: /index.html

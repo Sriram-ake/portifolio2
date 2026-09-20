@@ -6,19 +6,19 @@
  */
 
 :root {
-  /* Dark theme (default) — warm amber/rose on warm black */
-  --color-background: 10 8 5; /* #0a0805 warm black */
-  --color-foreground: 245 240 234; /* #f5f0ea warm white */
-  --color-muted: 26 22 16;
-  --color-muted-foreground: 168 158 143;
-  --color-card: 20 17 12;
-  --color-card-foreground: 245 240 234;
-  --color-border: 54 46 36;
-  --color-accent: 245 158 11; /* #f59e0b amber */
-  --color-accent-secondary: 251 113 133; /* #fb7185 rose */
-  --color-on-accent: 26 18 5; /* dark text for use on amber surfaces (AA) */
-  --color-destructive: 239 68 68; /* red-500 (distinct from rose accent) */
-  --color-success: 74 222 128; /* green-400 */
+  /* Dark theme (default) — sky/indigo on midnight navy */
+  --color-background: 5 8 15; /* #05080f midnight navy */
+  --color-foreground: 232 238 247; /* #e8eef7 cool white */
+  --color-muted: 20 26 40;
+  --color-muted-foreground: 148 161 186;
+  --color-card: 13 18 30;
+  --color-card-foreground: 232 238 247;
+  --color-border: 33 43 64;
+  --color-accent: 56 189 248; /* #38bdf8 sky */
+  --color-accent-secondary: 129 140 248; /* #818cf8 periwinkle/indigo */
+  --color-on-accent: 4 12 22; /* dark text for use on sky surfaces (AA) */
+  --color-destructive: 248 113 113; /* red-400 (distinct from the blue accent) */
+  --color-success: 52 211 153; /* emerald-400 */
 
   /* Radii */
   --radius-xs: 0.375rem;
@@ -39,16 +39,16 @@
 }
 
 :root.light {
-  --color-background: 250 249 246; /* warm off-white */
-  --color-foreground: 26 22 16;
-  --color-muted: 244 241 235;
-  --color-muted-foreground: 110 100 88;
+  --color-background: 247 249 252; /* cool off-white */
+  --color-foreground: 15 23 38;
+  --color-muted: 238 242 248;
+  --color-muted-foreground: 90 104 128;
   --color-card: 255 255 255;
-  --color-card-foreground: 26 22 16;
-  --color-border: 228 222 213;
-  --color-accent: 180 83 9; /* amber-700 — AA-legible as text on light (~4.7:1) */
-  --color-accent-secondary: 190 24 93; /* rose-700 */
-  --color-on-accent: 255 255 255; /* white on amber-700 for bold button labels */
+  --color-card-foreground: 15 23 38;
+  --color-border: 220 227 238;
+  --color-accent: 3 105 161; /* sky-700 — AA-legible as text on light (~5.5:1) */
+  --color-accent-secondary: 79 70 229; /* indigo-600 */
+  --color-on-accent: 255 255 255; /* white on sky-700 */
   --color-destructive: 220 38 38;
   --color-success: 22 163 74;
 

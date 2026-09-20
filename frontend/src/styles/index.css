@@ -111,7 +111,7 @@
 
   /* Skip link for keyboard users. */
   .skip-link {
-    @apply absolute left-4 top-4 z-[100] -translate-y-24 rounded-md bg-accent px-4 py-2 text-sm font-medium text-background transition-transform focus:translate-y-0;
+    @apply absolute left-4 top-4 z-[100] -translate-y-24 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform focus:translate-y-0;
   }
 }
 

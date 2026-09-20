@@ -81,12 +81,20 @@ export const api = {
     messages: { role: 'user' | 'assistant'; content: string }[],
     signal?: AbortSignal,
   ): AsyncGenerator<string> {
-    const res = await fetch(`${API_BASE}/api/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages }),
-      signal,
-    })
+    let res: Response
+    try {
+      res = await fetch(`${API_BASE}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages }),
+        signal,
+      })
+    } catch {
+      throw new ApiError(
+        'Can’t reach the assistant. Make sure the backend server is running on port 8000.',
+        0,
+      )
+    }
     if (!res.ok || !res.body) {
       let detail = 'The assistant is unavailable right now.'
       try {

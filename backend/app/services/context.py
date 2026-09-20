@@ -117,8 +117,16 @@ def fallback_answer(question: str) -> str:
             f"{p.name} is pursuing a {p.branch} B.Tech ({p.year}) at {p.college}, {p.location}, "
             f"with a current CGPA of {p.cgpa}."
         )
-    if has("skill", "technolog", "tech stack", "language", "know", "programming"):
+    if has("learning", "currently learn", "improving", "getting better"):
+        learning = [
+            s.name for cat in data.SKILLS for s in cat.skills if s.level == "Learning"
+        ]
+        if learning:
+            return "He's currently learning: " + ", ".join(dict.fromkeys(learning)) + "."
+    if has("skill", "technolog", "tech stack", "language", "know", "programming", "stack"):
         return "Here are the technologies he works with:\n\n" + _skills_text()
+    if has("where", "location", "based", "from", "live"):
+        return f"{p.name} is based in {p.location}, studying at {p.college}."
     if has("project"):
         if data.PROJECTS:
             return "Here are his projects:\n\n" + "\n".join(

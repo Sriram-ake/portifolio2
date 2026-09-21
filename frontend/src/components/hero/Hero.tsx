@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Download, Mail } from 'lucide-react'
 import { profile } from '@/data/profile'
 import { Button } from '@/components/ui/Button'
-import { MagneticButton } from '@/components/ui/MagneticButton'
 import { SocialLinks } from '@/components/ui/SocialLinks'
 import { RotatingText } from './RotatingText'
 import { HeroVisual } from './HeroVisual'
@@ -91,12 +90,10 @@ export function Hero() {
             transition={{ delay: 0.8, duration: 0.5 }}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <MagneticButton>
-              <Button onClick={() => scrollTo('#projects')}>
-                View Projects
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Button>
-            </MagneticButton>
+            <Button onClick={() => scrollTo('#projects')}>
+              View Projects
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Button>
             <Button variant="secondary" onClick={() => scrollTo('#contact')}>
               <Mail className="h-4 w-4" aria-hidden="true" />
               Contact Me

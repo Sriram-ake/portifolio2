@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion'
-import { Activity, ArrowUpRight, Code2, GitFork, RefreshCw, Star } from 'lucide-react'
+import { ArrowUpRight, Code2, GitFork, RefreshCw, Star } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { StateBlock } from '@/components/ui/StateBlock'
 import { Button } from '@/components/ui/Button'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { Badge } from '@/components/ui/Badge'
-import { GitHubTimeline } from './GitHubTimeline'
 import { useGitHubRepos } from '@/hooks/useGitHubRepos'
 import { socialLinks } from '@/data/socialLinks'
 import { formatDate, githubOgImage } from '@/lib/utils'
@@ -133,23 +132,6 @@ export function GitHubActivity() {
           ))}
         </motion.div>
       )}
-
-      {/* Recent activity timeline */}
-      <div className="mt-16">
-        <motion.h3
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="mb-8 inline-flex items-center gap-2 font-display text-xl font-semibold"
-        >
-          <Activity className="h-5 w-5 text-accent" aria-hidden="true" />
-          Recent activity
-        </motion.h3>
-        <div className="max-w-2xl">
-          <GitHubTimeline />
-        </div>
-      </div>
     </Section>
   )
 }

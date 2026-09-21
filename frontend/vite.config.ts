@@ -14,7 +14,7 @@ export default defineConfig({
     // Honor a PORT assigned by the environment; fall back to 5173 locally.
     port: process.env.PORT ? Number(process.env.PORT) : 5173,
     proxy: {
-      // Proxy API calls to the FastAPI backend during development.
+      // Proxy API calls to the Express backend during development.
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,

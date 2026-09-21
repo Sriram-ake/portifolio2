@@ -9,18 +9,20 @@
 #    the value at build time.)
 
 services:
-  # ---------- Backend (FastAPI) ----------
+  # ---------- Backend (Express + TypeScript) ----------
   - type: web
     name: akesriram-api
-    runtime: python
+    runtime: node
     rootDir: backend
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    # --include=dev is required so TypeScript (a devDependency) is available to
+    # compile the build; Render sets NODE_ENV=production which otherwise skips it.
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.12.6"
+      - key: NODE_VERSION
+        value: "22.11.0"
       - key: FRONTEND_URL
         sync: false          # set to your static site URL after first deploy
       - key: GITHUB_TOKEN

@@ -182,6 +182,14 @@ def fallback_answer(question: str) -> str:
         return f"His aggregated problem-solving stats (Codolio): {p.social.codolio}"
     if has("instagram") and p.social.instagram:
         return f"His Instagram: {p.social.instagram}"
+    if has("solved", "problems", "how many", "dsa", "leetcode problem", "questions"):
+        parts = ["He solves DSA problems across LeetCode, CodeChef, GeeksforGeeks, HackerRank, and Codeforces."]
+        if p.social.codolio:
+            parts.append(
+                f"Live aggregated totals are on his Codolio profile: {p.social.codolio}"
+            )
+        parts.append("The Coding section of this site shows current counts pulled live from each platform.")
+        return " ".join(parts)
     if has("coding", "platform", "competitive"):
         return "He's active on these coding platforms:\n\n" + _social_text()
     if has("interest", "hobby", "music"):

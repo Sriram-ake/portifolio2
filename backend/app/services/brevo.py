@@ -6,6 +6,7 @@ errors are logged, never surfaced to the client verbatim.
 
 from __future__ import annotations
 
+import html
 import logging
 
 import httpx
@@ -31,15 +32,19 @@ async def send_contact_email(name: str, email: str, subject: str, message: str) 
         logger.warning("Brevo is not configured; contact email not sent.")
         return False
 
-    safe_message = message.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>")
+    # Escape every user-supplied field before embedding in HTML email.
+    safe_name = html.escape(name)
+    safe_email = html.escape(email)
+    safe_subject = html.escape(subject)
+    safe_message = html.escape(message).replace("\n", "<br>")
     payload = {
         "sender": {"email": settings.brevo_sender_email, "name": settings.brevo_sender_name},
         "to": [{"email": settings.contact_receiver_email}],
         "replyTo": {"email": email, "name": name},
         "subject": f"[Portfolio] {subject}",
         "htmlContent": (
-            f"<p><strong>From:</strong> {name} &lt;{email}&gt;</p>"
-            f"<p><strong>Subject:</strong> {subject}</p>"
+            f"<p><strong>From:</strong> {safe_name} &lt;{safe_email}&gt;</p>"
+            f"<p><strong>Subject:</strong> {safe_subject}</p>"
             f"<hr><p>{safe_message}</p>"
         ),
     }

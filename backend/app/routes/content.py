@@ -2,15 +2,19 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Query
+import re
+
+from fastapi import APIRouter, HTTPException, Query
 
 from .. import data
 from ..schemas import (
     Certification,
     EducationItem,
+    GitHubActivityResponse,
     GitHubReposResponse,
     Profile,
     Project,
+    RepoCommitsResponse,
     SkillCategory,
 )
 from ..services import coding_service
@@ -46,3 +50,24 @@ async def get_certifications() -> list[Certification]:
 @router.get("/github/repos", response_model=GitHubReposResponse)
 async def github_repos(force: bool = Query(False, description="Bypass cache")) -> GitHubReposResponse:
     return await coding_service.get_repos(force=force)
+
+
+@router.get("/github/activity", response_model=GitHubActivityResponse)
+async def github_activity(
+    force: bool = Query(False, description="Bypass cache"),
+) -> GitHubActivityResponse:
+    return await coding_service.get_activity(force=force)
+
+
+# GitHub owner/repo names: letters, digits, hyphen, underscore, dot only.
+_GH_NAME_RE = re.compile(r"^[A-Za-z0-9._-]{1,100}$")
+
+
+@router.get("/github/repos/{owner}/{repo}/commits", response_model=RepoCommitsResponse)
+async def github_repo_commits(
+    owner: str, repo: str, force: bool = Query(False, description="Bypass cache")
+) -> RepoCommitsResponse:
+    # Guard the proxied path segments so nothing but a plain owner/repo reaches GitHub.
+    if not _GH_NAME_RE.match(owner) or not _GH_NAME_RE.match(repo):
+        raise HTTPException(status_code=400, detail="Invalid repository identifier.")
+    return await coding_service.get_commits(owner, repo, force=force)

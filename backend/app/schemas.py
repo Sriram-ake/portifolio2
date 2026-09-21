@@ -135,6 +135,39 @@ class GitHubReposResponse(BaseModel):
     model_config = {"populate_by_name": True}
 
 
+class GitHubActivityItem(BaseModel):
+    id: str
+    type: str  # normalized action, e.g. "Pushed", "Created repository"
+    repo: str
+    repo_url: str = Field(serialization_alias="repoUrl")
+    detail: str | None = None
+    created_at: str = Field(serialization_alias="createdAt")
+
+    model_config = {"populate_by_name": True}
+
+
+class GitHubActivityResponse(BaseModel):
+    status: Literal["ok", "unavailable", "error"]
+    items: list[GitHubActivityItem] = []
+    updated_at: str | None = Field(default=None, serialization_alias="updatedAt")
+    message: str | None = None
+
+    model_config = {"populate_by_name": True}
+
+
+class RepoCommit(BaseModel):
+    sha: str
+    message: str
+    url: str
+    date: str | None = None
+
+
+class RepoCommitsResponse(BaseModel):
+    status: Literal["ok", "unavailable", "error"]
+    commits: list[RepoCommit] = []
+    message: str | None = None
+
+
 class HeatmapDay(BaseModel):
     date: str  # YYYY-MM-DD
     count: int

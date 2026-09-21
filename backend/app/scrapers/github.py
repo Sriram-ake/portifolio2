@@ -9,10 +9,14 @@ import httpx
 from ..schemas import (
     CodingPlatformStats,
     CodingStatItem,
+    GitHubActivityItem,
+    GitHubActivityResponse,
     GitHubRepo,
     GitHubReposResponse,
     Heatmap,
     HeatmapDay,
+    RepoCommit,
+    RepoCommitsResponse,
 )
 from .base import (
     client,
@@ -98,6 +102,95 @@ async def fetch_repos(username: str, limit: int = 6) -> GitHubReposResponse:
         return GitHubReposResponse(status="ok", repos=repos[:limit], updated_at=now_iso())
     except (httpx.HTTPError, ValueError, KeyError):
         return GitHubReposResponse(status="unavailable", message="Could not load repositories.")
+
+
+def _describe_event(ev: dict) -> tuple[str, str | None] | None:
+    """Map a GitHub event to (action, detail). Returns None to skip the event."""
+    etype = ev.get("type")
+    payload = ev.get("payload") or {}
+    if etype == "PushEvent":
+        n = payload.get("size") or len(payload.get("commits") or [])
+        return "Pushed", f"{n} commit{'s' if n != 1 else ''}"
+    if etype == "CreateEvent":
+        ref_type = payload.get("ref_type", "repository")
+        return f"Created {ref_type}", payload.get("ref")
+    if etype == "PullRequestEvent":
+        action = payload.get("action", "updated")
+        return f"{action.capitalize()} pull request", None
+    if etype == "IssuesEvent":
+        action = payload.get("action", "updated")
+        return f"{action.capitalize()} issue", None
+    if etype == "WatchEvent":
+        return "Starred", None
+    if etype == "ForkEvent":
+        return "Forked", None
+    if etype == "ReleaseEvent":
+        return "Released", (payload.get("release") or {}).get("tag_name")
+    if etype == "PublicEvent":
+        return "Made public", None
+    return None
+
+
+async def fetch_activity(username: str, limit: int = 12) -> GitHubActivityResponse:
+    """Recent public activity via the GitHub events API."""
+    try:
+        async with client(headers=github_headers()) as http:
+            resp = await http.get(
+                f"{API}/users/{username}/events/public", params={"per_page": 50}
+            )
+            if resp.status_code == 404:
+                return GitHubActivityResponse(status="unavailable", message="Profile not found.")
+            resp.raise_for_status()
+            events = resp.json()
+
+        items: list[GitHubActivityItem] = []
+        for ev in events:
+            described = _describe_event(ev)
+            if described is None:
+                continue
+            action, detail = described
+            repo_name = (ev.get("repo") or {}).get("name", "")
+            items.append(
+                GitHubActivityItem(
+                    id=str(ev.get("id")),
+                    type=action,
+                    repo=repo_name,
+                    repo_url=f"https://github.com/{repo_name}",
+                    detail=detail,
+                    created_at=ev.get("created_at", ""),
+                )
+            )
+            if len(items) >= limit:
+                break
+        return GitHubActivityResponse(status="ok", items=items, updated_at=now_iso())
+    except (httpx.HTTPError, ValueError, KeyError):
+        return GitHubActivityResponse(status="unavailable", message="Could not load activity.")
+
+
+async def fetch_commits(owner: str, repo: str, limit: int = 5) -> RepoCommitsResponse:
+    """Recent commits for a public repository."""
+    try:
+        async with client(headers=github_headers()) as http:
+            resp = await http.get(
+                f"{API}/repos/{owner}/{repo}/commits", params={"per_page": limit}
+            )
+            if resp.status_code in (404, 409):
+                return RepoCommitsResponse(status="unavailable", message="No commits available.")
+            resp.raise_for_status()
+            raw = resp.json()
+
+        commits = [
+            RepoCommit(
+                sha=(c.get("sha") or "")[:7],
+                message=((c.get("commit") or {}).get("message") or "").split("\n")[0][:120],
+                url=c.get("html_url", ""),
+                date=((c.get("commit") or {}).get("author") or {}).get("date"),
+            )
+            for c in raw
+        ]
+        return RepoCommitsResponse(status="ok", commits=commits)
+    except (httpx.HTTPError, ValueError, KeyError):
+        return RepoCommitsResponse(status="unavailable", message="Could not load commits.")
 
 
 async def fetch_heatmap(username: str) -> Heatmap:

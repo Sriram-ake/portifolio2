@@ -8,7 +8,14 @@ from ..cache import TTLCache
 from ..config import settings
 from ..scrapers import FETCHERS, HEATMAP_FETCHERS, github
 from ..scrapers.base import heatmap_unavailable, now_iso, unavailable
-from ..schemas import CodingPlatformStats, CodingSummary, GitHubReposResponse, Heatmap
+from ..schemas import (
+    CodingPlatformStats,
+    CodingSummary,
+    GitHubActivityResponse,
+    GitHubReposResponse,
+    Heatmap,
+    RepoCommitsResponse,
+)
 
 _USERNAMES = {
     "github": settings.github_username,
@@ -22,6 +29,9 @@ _USERNAMES = {
 _cache: TTLCache[CodingPlatformStats] = TTLCache(settings.coding_cache_ttl)
 _heatmap_cache: TTLCache[Heatmap] = TTLCache(settings.coding_cache_ttl)
 _repos_cache: TTLCache[GitHubReposResponse] = TTLCache(settings.coding_cache_ttl)
+_activity_cache: TTLCache[GitHubActivityResponse] = TTLCache(settings.coding_cache_ttl)
+# Commits change less often per repo; short-ish cache keyed by owner/repo.
+_commits_cache: TTLCache[RepoCommitsResponse] = TTLCache(settings.coding_cache_ttl)
 
 # Preserve a stable card order in the UI.
 PLATFORM_ORDER = ["github", "leetcode", "codechef", "hackerrank", "geeksforgeeks", "codeforces"]
@@ -96,7 +106,38 @@ async def get_repos(*, force: bool = False) -> GitHubReposResponse:
     return result
 
 
+async def get_activity(*, force: bool = False) -> GitHubActivityResponse:
+    if not force:
+        cached = _activity_cache.get("activity")
+        if cached is not None:
+            return cached
+    try:
+        result = await github.fetch_activity(settings.github_username)
+    except Exception:  # noqa: BLE001
+        result = GitHubActivityResponse(status="unavailable", message="Could not load activity.")
+    if result.status == "ok":
+        _activity_cache.set("activity", result)
+    return result
+
+
+async def get_commits(owner: str, repo: str, *, force: bool = False) -> RepoCommitsResponse:
+    key = f"{owner}/{repo}"
+    if not force:
+        cached = _commits_cache.get(key)
+        if cached is not None:
+            return cached
+    try:
+        result = await github.fetch_commits(owner, repo)
+    except Exception:  # noqa: BLE001
+        result = RepoCommitsResponse(status="unavailable", message="Could not load commits.")
+    if result.status == "ok":
+        _commits_cache.set(key, result)
+    return result
+
+
 def clear_cache() -> None:
     _cache.clear()
     _heatmap_cache.clear()
     _repos_cache.clear()
+    _activity_cache.clear()
+    _commits_cache.clear()

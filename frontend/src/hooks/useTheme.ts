@@ -27,7 +27,7 @@ export function useTheme() {
       // storage unavailable — ignore
     }
     const meta = document.querySelector('meta[name="theme-color"]')
-    meta?.setAttribute('content', isLight ? '#faf9f6' : '#0a0805')
+    meta?.setAttribute('content', isLight ? '#f7f9fc' : '#05080f')
     setThemeState(next)
   }, [])
 

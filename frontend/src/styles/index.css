@@ -68,14 +68,6 @@
     outline-offset: 2px;
     border-radius: 2px;
   }
-
-  /* When the custom cursor is active on a fine pointer, hide the native one. */
-  @media (pointer: fine) {
-    html.cursor-custom,
-    html.cursor-custom * {
-      cursor: none !important;
-    }
-  }
 }
 
 @layer components {

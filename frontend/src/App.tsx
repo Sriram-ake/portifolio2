@@ -1,5 +1,4 @@
 import { AuroraBackground } from '@/components/ui/AuroraBackground'
-import { CustomCursor } from '@/components/ui/CustomCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -30,7 +29,6 @@ export default function App() {
         Skip to content
       </a>
       <AuroraBackground />
-      <CustomCursor />
       <ScrollProgress />
       <Navbar />
 

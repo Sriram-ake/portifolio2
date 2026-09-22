@@ -158,6 +158,36 @@ export interface GitHubReposResponse {
   message?: string
 }
 
+export interface GitHubActivityItem {
+  id: string
+  /** Normalized action, e.g. "Pushed", "Created repository", "Starred". */
+  type: string
+  repo: string
+  repoUrl: string
+  detail: string | null
+  createdAt: string
+}
+
+export interface GitHubActivityResponse {
+  status: 'ok' | 'unavailable' | 'error'
+  items: GitHubActivityItem[]
+  updatedAt: string | null
+  message?: string
+}
+
+export interface RepoCommit {
+  sha: string
+  message: string
+  url: string
+  date: string | null
+}
+
+export interface RepoCommitsResponse {
+  status: 'ok' | 'unavailable' | 'error'
+  commits: RepoCommit[]
+  message?: string
+}
+
 export interface Achievement {
   id: string
   title: string

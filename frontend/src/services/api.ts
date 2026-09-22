@@ -3,8 +3,10 @@ import type {
   CodingPlatformStats,
   CodingSummary,
   ContactPayload,
+  GitHubActivityResponse,
   GitHubReposResponse,
   Heatmap,
+  RepoCommitsResponse,
 } from '@/types'
 
 /**
@@ -69,6 +71,16 @@ export const api = {
     request<Heatmap>(`/api/coding/${platform}/heatmap`, undefined, 15000),
 
   githubRepos: () => request<GitHubReposResponse>('/api/github/repos', undefined, 15000),
+
+  githubActivity: () =>
+    request<GitHubActivityResponse>('/api/github/activity', undefined, 15000),
+
+  repoCommits: (owner: string, repo: string) =>
+    request<RepoCommitsResponse>(
+      `/api/github/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/commits`,
+      undefined,
+      15000,
+    ),
 
   contact: (payload: ContactPayload) =>
     request<{ ok: boolean; message: string }>('/api/contact', {

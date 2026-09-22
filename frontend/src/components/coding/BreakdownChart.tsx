@@ -48,12 +48,12 @@ export function BreakdownChart({ data }: BreakdownChartProps) {
               </Pie>
               <Tooltip
                 contentStyle={{
-                  background: 'rgb(20 17 12)',
-                  border: '1px solid rgb(54 46 36)',
+                  background: 'rgb(13 18 30)',
+                  border: '1px solid rgb(33 43 64)',
                   borderRadius: 8,
                   fontSize: 12,
                 }}
-                itemStyle={{ color: 'rgb(245 240 234)' }}
+                itemStyle={{ color: 'rgb(232 238 247)' }}
               />
             </PieChart>
           </ResponsiveContainer>

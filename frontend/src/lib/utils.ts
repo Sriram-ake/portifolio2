@@ -25,6 +25,24 @@ export function formatCompact(value: number): string {
   )
 }
 
+/** Relative time from an ISO timestamp ("just now", "3h ago", "2d ago"). */
+export function timeAgo(iso: string | null | undefined): string {
+  if (!iso) return ''
+  const then = new Date(iso).getTime()
+  if (Number.isNaN(then)) return ''
+  const seconds = Math.round((Date.now() - then) / 1000)
+  if (seconds < 60) return 'just now'
+  const minutes = Math.round(seconds / 60)
+  if (minutes < 60) return `${minutes}m ago`
+  const hours = Math.round(minutes / 60)
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.round(hours / 24)
+  if (days < 30) return `${days}d ago`
+  const months = Math.round(days / 30)
+  if (months < 12) return `${months}mo ago`
+  return `${Math.round(months / 12)}y ago`
+}
+
 export function isExternalUrl(url: string | null | undefined): url is string {
   return typeof url === 'string' && /^https?:\/\//i.test(url)
 }

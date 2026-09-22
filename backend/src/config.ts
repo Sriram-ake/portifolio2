@@ -59,10 +59,20 @@ export const settings = {
   contactRateWindow: envInt('CONTACT_RATE_WINDOW', 60 * 60),
 }
 
-/** Allowed CORS origins (frontend URL + local dev). */
+/**
+ * Allowed CORS origins (frontend URL + local dev).
+ *
+ * Trailing slashes are stripped because browsers send the `Origin` header
+ * without one — a `FRONTEND_URL` like `https://site.onrender.com/` would
+ * otherwise silently fail to match and block every cross-origin request.
+ * FRONTEND_URL may also be a comma-separated list (e.g. custom domain + the
+ * onrender.com URL) so multiple front-ends can share one backend.
+ */
 export function corsOrigins(): string[] {
+  const normalize = (url: string) => url.trim().replace(/\/+$/, '')
+  const configured = settings.frontendUrl.split(',').map(normalize)
   const set = new Set([
-    settings.frontendUrl,
+    ...configured,
     'http://localhost:5173',
     'http://127.0.0.1:5173',
   ])

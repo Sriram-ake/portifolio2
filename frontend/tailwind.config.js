@@ -48,8 +48,10 @@ export default {
         pill: '9999px',
       },
       boxShadow: {
-        glow: '0 0 0 1px rgb(var(--color-border) / 0.6), 0 8px 40px -12px rgb(var(--color-accent) / 0.35)',
-        card: '0 1px 0 0 rgb(255 255 255 / 0.03) inset, 0 20px 50px -20px rgb(0 0 0 / 0.6)',
+        glow: '0 0 0 1px rgb(var(--color-border) / 0.6), 0 8px 40px -12px rgb(var(--color-accent) / 0.45)',
+        'glow-lg':
+          '0 0 0 1px rgb(var(--color-accent) / 0.25), 0 0 60px -12px rgb(var(--color-accent) / 0.6)',
+        card: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 20px 50px -20px rgb(0 0 0 / 0.7)',
       },
       backgroundImage: {
         'grid-fade':
@@ -71,12 +73,38 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-8px)' },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'aurora-drift': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%': { transform: 'translate(6%, -8%) scale(1.08)' },
+          '66%': { transform: 'translate(-6%, 6%) scale(0.96)' },
+        },
+        shine: {
+          '0%': { backgroundPosition: '200% center' },
+          '100%': { backgroundPosition: '-200% center' },
+        },
+        'grid-move': {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '48px 48px' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { opacity: '0.6' },
+          '50%': { opacity: '1' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
         shimmer: 'shimmer 2s infinite',
         'border-flow': 'border-flow 6s ease infinite',
         float: 'float 6s ease-in-out infinite',
+        marquee: 'marquee var(--marquee-duration, 40s) linear infinite',
+        'aurora-drift': 'aurora-drift 18s ease-in-out infinite',
+        shine: 'shine 3s linear infinite',
+        'grid-move': 'grid-move 20s linear infinite',
+        'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
       },
     },
   },

@@ -1,5 +1,7 @@
 import { AuroraBackground } from '@/components/ui/AuroraBackground'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
+import { SmoothScroll } from '@/components/ui/SmoothScroll'
+import { ClickSpark } from '@/components/ui/ClickSpark'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/hero/Hero'
@@ -28,8 +30,10 @@ export default function App() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
+      <SmoothScroll />
       <AuroraBackground />
       <ScrollProgress />
+      <ClickSpark />
       <Navbar />
 
       <main id="main">

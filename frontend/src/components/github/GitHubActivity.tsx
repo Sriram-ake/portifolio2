@@ -6,12 +6,13 @@ import { Button } from '@/components/ui/Button'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { Badge } from '@/components/ui/Badge'
 import { useGitHubRepos } from '@/hooks/useGitHubRepos'
+import { MAX_RETRIES } from '@/hooks/useAsyncRetry'
 import { socialLinks } from '@/data/socialLinks'
 import { formatDate, githubOgImage } from '@/lib/utils'
 import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
 
 export function GitHubActivity() {
-  const { repos, loading, error, refetch } = useGitHubRepos()
+  const { repos, loading, waking, error, refetch, attempt } = useGitHubRepos()
 
   return (
     <Section
@@ -39,7 +40,15 @@ export function GitHubActivity() {
       </div>
 
       {loading && repos.length === 0 ? (
-        <StateBlock variant="loading" message="Fetching repositories…" />
+        <StateBlock
+          variant="loading"
+          title={waking ? 'Waking the GitHub service…' : undefined}
+          message={
+            waking
+              ? `The backend sleeps when idle and is spinning back up — this can take up to a minute. Retrying automatically (attempt ${attempt} of ${MAX_RETRIES})…`
+              : 'Fetching repositories…'
+          }
+        />
       ) : error && repos.length === 0 ? (
         <StateBlock
           variant="error"

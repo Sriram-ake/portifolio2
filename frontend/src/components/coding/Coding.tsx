@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { useCoding } from '@/hooks/useCoding'
 import { useHeatmaps } from '@/hooks/useHeatmaps'
+import { MAX_RETRIES } from '@/hooks/useAsyncRetry'
 import { socialLinks } from '@/data/socialLinks'
 import { staggerContainer, fadeUp, viewportOnce } from '@/animations/variants'
 import { PlatformCard } from './PlatformCard'
@@ -28,7 +29,7 @@ function totalSolved(platforms: { status: string; stats: { label: string; value:
 }
 
 export function Coding() {
-  const { data, loading, error, refetch } = useCoding()
+  const { data, loading, waking, error, refetch, attempt } = useCoding()
   const { heatmaps, loading: heatmapsLoading } = useHeatmaps()
 
   const platforms = data?.platforms ?? []
@@ -57,7 +58,15 @@ export function Coding() {
       </div>
 
       {loading && !data ? (
-        <StateBlock variant="loading" message="Fetching coding statistics…" />
+        <StateBlock
+          variant="loading"
+          title={waking ? 'Waking the statistics service…' : undefined}
+          message={
+            waking
+              ? `The backend sleeps when idle and is spinning back up — this can take up to a minute. Retrying automatically (attempt ${attempt} of ${MAX_RETRIES})…`
+              : 'Fetching coding statistics…'
+          }
+        />
       ) : error && !data ? (
         <StateBlock
           variant="error"

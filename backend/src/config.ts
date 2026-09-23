@@ -60,15 +60,22 @@ export const settings = {
 }
 
 /**
- * Allowed CORS origins (frontend URL + local dev).
+ * Allowed CORS origins (frontend URL + local dev + Render subdomains).
  *
  * Trailing slashes are stripped because browsers send the `Origin` header
  * without one — a `FRONTEND_URL` like `https://site.onrender.com/` would
  * otherwise silently fail to match and block every cross-origin request.
  * FRONTEND_URL may also be a comma-separated list (e.g. custom domain + the
  * onrender.com URL) so multiple front-ends can share one backend.
+ *
+ * A `*.onrender.com` pattern is always allowed so the deployed frontend can
+ * reach the API even when FRONTEND_URL hasn't been set to its exact origin (the
+ * Render subdomain can differ from the guessed name). This is safe here: the
+ * API is public and read-only and runs with `credentials: false`, so CORS is
+ * not acting as a security boundary — it only decides which browsers may read
+ * already-public data. Custom domains should still be added via FRONTEND_URL.
  */
-export function corsOrigins(): string[] {
+export function corsOrigins(): (string | RegExp)[] {
   const normalize = (url: string) => url.trim().replace(/\/+$/, '')
   const configured = settings.frontendUrl.split(',').map(normalize)
   const set = new Set([
@@ -76,5 +83,6 @@ export function corsOrigins(): string[] {
     'http://localhost:5173',
     'http://127.0.0.1:5173',
   ])
-  return [...set].filter(Boolean)
+  const patterns: RegExp[] = [/^https:\/\/[a-z0-9-]+\.onrender\.com$/i]
+  return [...[...set].filter(Boolean), ...patterns]
 }

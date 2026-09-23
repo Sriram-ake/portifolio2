@@ -1,12 +1,11 @@
-# Render Blueprint — deploys the FastAPI backend + the Vite static frontend.
+# Render Blueprint — deploys the Express + TypeScript backend + the Vite static
+# frontend.
 # Docs: https://render.com/docs/blueprint-spec
 #
-# After the first deploy:
-#   1. Copy the backend service URL (e.g. https://akesriram-api.onrender.com)
-#   2. Set the frontend's VITE_API_BASE_URL env var to that URL, and the
-#      backend's FRONTEND_URL to the static site URL, then redeploy.
-#   (These can't reference each other automatically because the frontend needs
-#    the value at build time.)
+# VITE_API_BASE_URL is baked into the frontend bundle at build time (also set in
+# frontend/.env.production as the reliable default). The backend allows any
+# *.onrender.com origin out of the box (see corsOrigins in backend/src/config.ts);
+# set FRONTEND_URL only for a custom domain.
 
 services:
   # ---------- Backend (Express + TypeScript) ----------
@@ -47,7 +46,7 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE_URL
-        sync: false          # set to the backend URL after first deploy
+        value: https://akesriram-api.onrender.com
     routes:
       # SPA fallback so any path serves index.html
       - type: rewrite

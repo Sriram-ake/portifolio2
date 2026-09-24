@@ -52,7 +52,8 @@ export const settings = {
   brevoApiKey: envOptional('BREVO_API_KEY'),
   brevoSenderEmail: envOptional('BREVO_SENDER_EMAIL'),
   brevoSenderName: env('BREVO_SENDER_NAME', 'Portfolio Contact Form'),
-  contactReceiverEmail: envOptional('CONTACT_RECEIVER_EMAIL'),
+  // Accept CONTACT_RECIPIENT_EMAIL as an alias so either spelling works.
+  contactReceiverEmail: envOptional('CONTACT_RECEIVER_EMAIL') ?? envOptional('CONTACT_RECIPIENT_EMAIL'),
 
   // Contact rate limiting.
   contactRateLimit: envInt('CONTACT_RATE_LIMIT', 5),

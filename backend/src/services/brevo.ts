@@ -13,6 +13,18 @@ export function isConfigured(): boolean {
   return Boolean(settings.brevoApiKey && settings.brevoSenderEmail && settings.contactReceiverEmail)
 }
 
+/**
+ * Per-variable readiness for diagnostics. Reports only whether each value is
+ * present (boolean) — never the values themselves — so it's safe to expose.
+ */
+export function configStatus(): { apiKey: boolean; senderEmail: boolean; recipientEmail: boolean } {
+  return {
+    apiKey: Boolean(settings.brevoApiKey),
+    senderEmail: Boolean(settings.brevoSenderEmail),
+    recipientEmail: Boolean(settings.contactReceiverEmail),
+  }
+}
+
 /** Escape HTML special characters to prevent injection into the email body. */
 function escapeHtml(s: string): string {
   return s

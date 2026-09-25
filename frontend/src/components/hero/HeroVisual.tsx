@@ -1,13 +1,14 @@
 import { useRef, type MouseEvent } from 'react'
-import { motion } from 'framer-motion'
-import { GraduationCap, Sparkles } from 'lucide-react'
+import { GraduationCap } from 'lucide-react'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { profile } from '@/data/profile'
 
 /**
  * Hero portrait: the profile photo in a glassy frame that tilts subtly toward
- * the cursor, with two floating fact chips. Pointer-only enhancement; renders
- * flat and static under reduced motion.
+ * the cursor, with two floating fact chips. Entrance + float are CSS-driven
+ * (`animate-fade-up` / `animate-float`, `both` fill), so the portrait is never
+ * dependent on JS/rAF to be visible — worst case it sits at its natural state.
+ * The cursor tilt is a pointer-only enhancement, disabled under reduced motion.
  */
 export function HeroVisual() {
   const ref = useRef<HTMLDivElement>(null)
@@ -29,11 +30,9 @@ export function HeroVisual() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="relative mx-auto w-full max-w-sm"
+    <div
+      className="relative mx-auto w-full max-w-sm animate-fade-up"
+      style={{ animationDelay: '0.35s' }}
     >
       {/* Ambient glow */}
       <div
@@ -78,25 +77,12 @@ export function HeroVisual() {
           </div>
         </div>
 
-        {/* Floating chips */}
-        <motion.div
-          animate={reduce ? {} : { y: [0, -8, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -left-4 top-8 flex items-center gap-2 rounded-xl border border-border bg-card/90 px-3 py-2 shadow-card backdrop-blur sm:-left-8"
-        >
+        {/* Floating chip — CSS float, paused under reduced motion by the global killswitch */}
+        <div className="absolute -left-4 top-8 flex items-center gap-2 rounded-xl border border-border bg-card/90 px-3 py-2 shadow-card backdrop-blur animate-float sm:-left-8">
           <GraduationCap className="h-4 w-4 text-accent" aria-hidden="true" />
           <span className="text-xs font-medium">{profile.branch} · {profile.year}</span>
-        </motion.div>
-
-        <motion.div
-          animate={reduce ? {} : { y: [0, 8, 0] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-          className="absolute -right-3 bottom-24 flex items-center gap-2 rounded-xl border border-border bg-card/90 px-3 py-2 shadow-card backdrop-blur sm:-right-6"
-        >
-          <Sparkles className="h-4 w-4 text-accent-secondary" aria-hidden="true" />
-          <span className="text-xs font-medium">CGPA {profile.cgpa}</span>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

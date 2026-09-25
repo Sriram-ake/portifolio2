@@ -94,6 +94,14 @@ export default {
           '0%, 100%': { opacity: '0.6' },
           '50%': { opacity: '1' },
         },
+        'name-reveal': {
+          '0%': { opacity: '0', transform: 'translateY(0.45em)', filter: 'blur(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
+        },
+        'scroll-cue': {
+          '0%, 100%': { transform: 'translateY(0)', opacity: '0.35' },
+          '50%': { transform: 'translateY(9px)', opacity: '1' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
@@ -105,6 +113,8 @@ export default {
         shine: 'shine 3s linear infinite',
         'grid-move': 'grid-move 20s linear infinite',
         'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+        'name-reveal': 'name-reveal 0.62s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'scroll-cue': 'scroll-cue 1.7s ease-in-out infinite',
       },
     },
   },

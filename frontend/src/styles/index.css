@@ -24,8 +24,10 @@
     *::before,
     *::after {
       animation-duration: 0.001ms !important;
+      animation-delay: 0ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
+      transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
   }
@@ -34,6 +36,13 @@
     @apply bg-background text-foreground font-sans antialiased;
     min-height: 100vh;
     overflow-x: hidden;
+    /*
+     * Smooth, cheap theme transition: only the two paint properties on a single
+     * element (no global `* { transition: all }`, which would jank a large page).
+     * Component surfaces ease via their own `transition-colors`; the reduced-motion
+     * killswitch below zeroes this out.
+     */
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   /* Scroll margin so anchored sections aren't hidden behind the sticky nav. */

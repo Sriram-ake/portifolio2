@@ -15,7 +15,8 @@ import {
 import { Section } from '@/components/ui/Section'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { milestones, type Milestone } from '@/data/milestones'
-import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
+import { fadeUp, staggerContainer } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 const iconMap: Record<Milestone['icon'], LucideIcon> = {
   trophy: Trophy,
@@ -31,6 +32,7 @@ const iconMap: Record<Milestone['icon'], LucideIcon> = {
 }
 
 export function Milestones() {
+  const reveal = useReveal(staggerContainer)
   if (milestones.length === 0) return null
 
   return (
@@ -41,10 +43,7 @@ export function Milestones() {
       description="Concrete markers from an ongoing journey in problem solving and building."
     >
       <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
+        {...reveal}
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {milestones.map((m) => {

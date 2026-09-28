@@ -9,10 +9,12 @@ import { useGitHubRepos } from '@/hooks/useGitHubRepos'
 import { MAX_RETRIES } from '@/hooks/useAsyncRetry'
 import { socialLinks } from '@/data/socialLinks'
 import { formatDate, githubOgImage } from '@/lib/utils'
-import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
+import { fadeUp, staggerContainer } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 export function GitHubActivity() {
   const { repos, loading, waking, error, refetch, attempt } = useGitHubRepos()
+  const reveal = useReveal(staggerContainer)
 
   return (
     <Section
@@ -58,10 +60,7 @@ export function GitHubActivity() {
         />
       ) : (
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
+          {...reveal}
           className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           {repos.map((repo) => (

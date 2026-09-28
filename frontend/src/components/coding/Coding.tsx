@@ -8,7 +8,8 @@ import { useCoding } from '@/hooks/useCoding'
 import { useHeatmaps } from '@/hooks/useHeatmaps'
 import { MAX_RETRIES } from '@/hooks/useAsyncRetry'
 import { socialLinks } from '@/data/socialLinks'
-import { staggerContainer, fadeUp, viewportOnce } from '@/animations/variants'
+import { staggerContainer, fadeUp } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 import { PlatformCard } from './PlatformCard'
 import { BreakdownChart } from './BreakdownChart'
 import { ActivityHeatmap } from './ActivityHeatmap'
@@ -31,6 +32,7 @@ function totalSolved(platforms: { status: string; stats: { label: string; value:
 export function Coding() {
   const { data, loading, waking, error, refetch, attempt } = useCoding()
   const { heatmaps, loading: heatmapsLoading } = useHeatmaps()
+  const reveal = useReveal(staggerContainer)
 
   const platforms = data?.platforms ?? []
   const chartsAvailable = platforms.filter((p) => p.status === 'ok' && p.breakdown?.length)
@@ -108,10 +110,7 @@ export function Coding() {
           )}
 
           <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
+            {...reveal}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {platforms.map((platform) => (

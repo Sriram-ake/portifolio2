@@ -20,7 +20,8 @@ import { TiltedCard } from '@/components/ui/TiltedCard'
 import { GradientText } from '@/components/ui/GradientText'
 import { skillCategories, softSkills } from '@/data/skills'
 import type { Skill, SkillProficiency } from '@/types'
-import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
+import { fadeUp, staggerContainer } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 import { cn } from '@/lib/utils'
 
 const categoryIcons: Record<string, LucideIcon> = {
@@ -119,6 +120,7 @@ function LevelLegend() {
 }
 
 export function Skills() {
+  const reveal = useReveal(staggerContainer)
   return (
     <Section
       id="skills"
@@ -133,10 +135,7 @@ export function Skills() {
       <LevelLegend />
 
       <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
+        {...reveal}
         className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-6"
       >
         {skillCategories.map((category) => {

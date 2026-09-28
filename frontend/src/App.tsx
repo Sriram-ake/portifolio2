@@ -23,10 +23,12 @@ import { Journey } from '@/components/journey/Journey'
 import { Assistant } from '@/components/assistant/Assistant'
 import { Contact } from '@/components/contact/Contact'
 import { ChatWidget } from '@/components/chatbot/ChatWidget'
+import { IntroSplash } from '@/components/intro/IntroSplash'
 
 export default function App() {
   return (
     <>
+      <IntroSplash />
       <a href="#main" className="skip-link">
         Skip to content
       </a>

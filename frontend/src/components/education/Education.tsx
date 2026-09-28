@@ -3,9 +3,11 @@ import { GraduationCap } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { Badge } from '@/components/ui/Badge'
 import { education } from '@/data/education'
-import { fadeUp, viewportOnce } from '@/animations/variants'
+import { fadeUp } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 export function Education() {
+  const reveal = useReveal(fadeUp)
   return (
     <Section
       id="education"
@@ -17,10 +19,7 @@ export function Education() {
         {education.map((item, i) => (
           <motion.li
             key={item.id}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
+            {...reveal}
             custom={i}
             className="relative pb-10 last:pb-0"
           >

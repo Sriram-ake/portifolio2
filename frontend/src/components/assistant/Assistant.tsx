@@ -4,20 +4,19 @@ import { Section } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
 import { suggestedPrompts } from '@/data/assistant'
 import { OPEN_ASSISTANT_EVENT } from '@/components/chatbot/ChatWidget'
-import { fadeUp, viewportOnce } from '@/animations/variants'
+import { fadeUp } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 function openAssistant() {
   window.dispatchEvent(new CustomEvent(OPEN_ASSISTANT_EVENT))
 }
 
 export function Assistant() {
+  const reveal = useReveal(fadeUp)
   return (
     <Section id="assistant" eyebrow="AI Assistant" title="Ask about my work" centered>
       <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
+        {...reveal}
         className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-border bg-card p-8 text-center sm:p-12"
       >
         {/* ambient glow */}

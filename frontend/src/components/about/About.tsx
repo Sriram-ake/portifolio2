@@ -3,7 +3,8 @@ import { GraduationCap, Languages, MapPin, Music, Sparkles } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { profile } from '@/data/profile'
-import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
+import { fadeUp, staggerContainer } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 const highlights = [
   { icon: GraduationCap, label: 'Education', value: `${profile.branch}, ${profile.year}` },
@@ -13,6 +14,8 @@ const highlights = [
 ]
 
 export function About() {
+  const revealItem = useReveal(fadeUp)
+  const revealGroup = useReveal(staggerContainer)
   return (
     <Section
       id="about"
@@ -22,10 +25,7 @@ export function About() {
     >
       <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
+          {...revealItem}
           className="card-surface p-7 sm:p-9"
         >
           <p className="text-lg leading-relaxed text-foreground/90">{profile.summary}</p>
@@ -54,10 +54,7 @@ export function About() {
         </motion.div>
 
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
+          {...revealGroup}
           className="grid grid-cols-2 gap-4"
         >
           {highlights.map(({ icon: Icon, label, value }) => (

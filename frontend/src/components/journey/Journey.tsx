@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { Section } from '@/components/ui/Section'
 import { journey } from '@/data/journey'
-import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
+import { fadeUp, staggerContainer } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 /** Developer journey shown as a connected horizontal (desktop) / vertical (mobile) path. */
 export function Journey() {
+  const reveal = useReveal(staggerContainer)
   if (journey.length === 0) return null
 
   return (
@@ -15,10 +17,7 @@ export function Journey() {
       description="Direction and focus over time — described honestly, without invented milestones."
     >
       <motion.ol
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
+        {...reveal}
         className="relative grid gap-6 md:grid-cols-4"
       >
         {/* connecting line (desktop) */}

@@ -9,13 +9,15 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { certifications, certificationCategories } from '@/data/certifications'
 import type { Certification } from '@/types'
-import { fadeUp, staggerContainer, viewportOnce } from '@/animations/variants'
+import { fadeUp, staggerContainer } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 import { cn, formatDate } from '@/lib/utils'
 
 export function Certifications() {
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState('All')
   const [active, setActive] = useState<Certification | null>(null)
+  const reveal = useReveal(staggerContainer)
 
   const categories = useMemo(() => ['All', ...certificationCategories()], [])
 
@@ -88,10 +90,7 @@ export function Certifications() {
             <StateBlock variant="empty" title="No matches" message="Try a different search or filter." />
           ) : (
             <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportOnce}
+              {...reveal}
               className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
             >
               {visible.map((cert) => (

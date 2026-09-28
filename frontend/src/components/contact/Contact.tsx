@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/Button'
 import { SocialLinks } from '@/components/ui/SocialLinks'
 import { api, ApiError } from '@/services/api'
 import { profile, profileVisibility } from '@/data/profile'
-import { fadeUp, viewportOnce } from '@/animations/variants'
+import { fadeUp } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 import { cn } from '@/lib/utils'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
@@ -48,6 +49,7 @@ export function Contact() {
   const [errors, setErrors] = useState<FieldErrors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [serverMessage, setServerMessage] = useState('')
+  const reveal = useReveal(fadeUp)
 
   const update = (field: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValues((v) => ({ ...v, [field]: e.target.value }))
@@ -96,7 +98,7 @@ export function Contact() {
     >
       <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
         {/* Left: contact info */}
-        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewportOnce}>
+        <motion.div {...reveal}>
           <div className="card-surface p-7">
             <h3 className="font-display text-lg font-semibold">Reach out directly</h3>
             <a
@@ -124,10 +126,7 @@ export function Contact() {
 
         {/* Right: form */}
         <motion.form
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
+          {...reveal}
           onSubmit={handleSubmit}
           noValidate
           className="card-surface space-y-5 p-7"

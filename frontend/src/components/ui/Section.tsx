@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import { fadeUp, viewportOnce } from '@/animations/variants'
+import { fadeUp } from '@/animations/variants'
+import { useReveal } from '@/animations/useReveal'
 
 interface SectionProps {
   id: string
@@ -25,15 +26,13 @@ export function Section({
   className,
   centered = false,
 }: SectionProps) {
+  const reveal = useReveal(fadeUp)
   return (
     <section id={id} className={cn('section-pad', className)} aria-labelledby={`${id}-title`}>
       <div className="container-px">
         {(eyebrow || title || description) && (
           <motion.header
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
+            {...reveal}
             className={cn('mb-12 max-w-2xl', centered && 'mx-auto text-center')}
           >
             {eyebrow && (

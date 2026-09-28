@@ -130,7 +130,7 @@ export const PROJECTS: Project[] = [
     description:
       'An adaptive learning RPG for Android. A diagnostic finds your weakest topic and an Elo-based model builds bite-sized quests around it, with a skill-tree map, boss unlocks, and a streaming AI mentor.',
     technologies: ['Kotlin', 'Jetpack Compose', 'Ktor', 'MongoDB Atlas', 'Firebase', 'NVIDIA NIM', 'Docker'],
-    featured: true,
+    featured: false,
     category: 'AI',
     year: '2026',
     githubUrl: 'https://github.com/Sriram-ake/masteria',

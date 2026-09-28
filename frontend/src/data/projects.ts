@@ -27,7 +27,7 @@ export const projects: Project[] = [
     year: '2026',
     githubUrl: 'https://github.com/Sriram-ake/masteria',
     liveUrl: null,
-    featured: true,
+    featured: false,
   },
   {
     id: 'flappy-bird',

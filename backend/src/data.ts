@@ -125,26 +125,51 @@ export const SKILLS: SkillCategory[] = [
 // or live demo exists yet — never fabricated.
 export const PROJECTS: Project[] = [
   {
+    id: 'masteria',
+    title: 'Masteria',
+    description:
+      'An adaptive learning RPG for Android. A diagnostic finds your weakest topic and an Elo-based model builds bite-sized quests around it, with a skill-tree map, boss unlocks, and a streaming AI mentor.',
+    technologies: ['Kotlin', 'Jetpack Compose', 'Ktor', 'MongoDB Atlas', 'Firebase', 'NVIDIA NIM', 'Docker'],
+    featured: true,
+    category: 'AI',
+    year: '2026',
+    githubUrl: 'https://github.com/Sriram-ake/masteria',
+    liveUrl: null,
+  },
+  {
+    id: 'flappy-bird',
+    title: 'Flappy Bird: Neural Flight',
+    description:
+      'A modern Flappy Bird in Python paired with a Deep Q-Network reinforcement-learning agent. Play yourself, watch the trained agent, or take it on in a Human vs AI duel.',
+    technologies: ['Python', 'PyTorch', 'Gymnasium', 'Pygame', 'Matplotlib'],
+    featured: false,
+    category: 'Game',
+    year: '2026',
+    githubUrl: 'https://github.com/Sriram-ake/flappy_bird',
+    liveUrl: null,
+  },
+  {
+    id: 'developer-command-center',
+    title: 'Developer Command Center',
+    description:
+      'A local-first, full-stack developer productivity dashboard: DSA tracker, snippets, roadmap, goals, notes, resume builder, live GitHub integration, and analytics behind JWT auth.',
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Java', 'Spring Boot', 'Spring Security', 'H2 / MySQL'],
+    featured: false,
+    category: 'Full Stack',
+    year: '2026',
+    githubUrl: 'https://github.com/Sriram-ake/developer-command-center',
+    liveUrl: null,
+  },
+  {
     id: 'calculator',
     title: 'Calculator',
     description: 'A responsive calculator web app with a clean, minimal UI.',
     technologies: ['JavaScript', 'HTML', 'CSS'],
-    featured: true,
+    featured: false,
     category: 'Web',
     year: '2025',
     githubUrl: 'https://github.com/Sriram-ake/Calculator',
     liveUrl: 'https://sriram-ake.github.io/Calculator/',
-  },
-  {
-    id: 'synapcraft',
-    title: 'SynapCraft',
-    description: 'An interactive fruit-fly connectome model in Minecraft.',
-    technologies: ['JavaScript', 'Python', 'HTML', 'CSS'],
-    featured: true,
-    category: 'AI',
-    year: '2026',
-    githubUrl: 'https://github.com/Sriram-ake/SynapCraft',
-    liveUrl: 'https://sriram-ake.github.io/SynapCraft/',
   },
 ]
 

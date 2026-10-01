@@ -24,10 +24,11 @@ import { Assistant } from '@/components/assistant/Assistant'
 import { Contact } from '@/components/contact/Contact'
 import { ChatWidget } from '@/components/chatbot/ChatWidget'
 import { IntroSplash } from '@/components/intro/IntroSplash'
+import { CommandCenterProvider } from '@/components/command/CommandCenterProvider'
 
 export default function App() {
   return (
-    <>
+    <CommandCenterProvider>
       <IntroSplash />
       <a href="#main" className="skip-link">
         Skip to content
@@ -59,6 +60,6 @@ export default function App() {
 
       <Footer />
       <ChatWidget />
-    </>
+    </CommandCenterProvider>
   )
 }

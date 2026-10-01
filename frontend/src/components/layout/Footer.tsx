@@ -2,6 +2,7 @@ import { Mail, Phone } from 'lucide-react'
 import { navItems } from '@/lib/navigation'
 import { profile, profileVisibility } from '@/data/profile'
 import { SocialLinks } from '@/components/ui/SocialLinks'
+import { StatusBar } from '@/components/dev/StatusBar'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -77,7 +78,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-center text-sm text-muted-foreground sm:flex-row sm:text-left">
+        <div className="mt-12 flex items-center justify-center border-t border-border pt-6 sm:justify-start">
+          <StatusBar />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-sm text-muted-foreground sm:flex-row sm:text-left">
           <p>
             © {year} {profile.name}. Built with React, TypeScript and a passion for technology.
           </p>

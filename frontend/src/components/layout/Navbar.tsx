@@ -1,11 +1,13 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { ChevronDown, Mail, Menu, X } from 'lucide-react'
 import { navItems, primaryNavItems, moreNavItems } from '@/lib/navigation'
 import { useScrolled } from '@/hooks/useScrolled'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/Button'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { CommandTrigger } from '@/components/command/CommandTrigger'
 import { profile } from '@/data/profile'
 
 const sectionIds = navItems.map((n) => n.id)
@@ -177,11 +179,25 @@ export function Navbar() {
         </ul>
 
         <div className="hidden shrink-0 items-center gap-2 lg:flex">
+          <CommandTrigger variant="bar" />
           <ThemeToggle />
+          <Button
+            as="a"
+            href="#contact"
+            size="sm"
+            onClick={(e) => {
+              e.preventDefault()
+              handleNav('#contact')
+            }}
+          >
+            <Mail className="h-4 w-4" aria-hidden="true" />
+            Get in touch
+          </Button>
         </div>
 
         {/* Mobile controls */}
         <div className="flex items-center gap-2 lg:hidden">
+          <CommandTrigger variant="icon" />
           <ThemeToggle />
           <button
             className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-foreground"
@@ -242,6 +258,20 @@ export function Navbar() {
                     </a>
                   </li>
                 ))}
+                <li className="mt-3 px-4">
+                  <Button
+                    as="a"
+                    href="#contact"
+                    className="w-full"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleNav('#contact')
+                    }}
+                  >
+                    <Mail className="h-4 w-4" aria-hidden="true" />
+                    Get in touch
+                  </Button>
+                </li>
               </ul>
             </motion.div>
           </>

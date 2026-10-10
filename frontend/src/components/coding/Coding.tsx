@@ -31,7 +31,7 @@ function totalSolved(platforms: { status: string; stats: { label: string; value:
 
 export function Coding() {
   const { data, loading, waking, error, refetch, attempt } = useCoding()
-  const { heatmaps, loading: heatmapsLoading } = useHeatmaps()
+  const { heatmaps, loading: heatmapsLoading } = useHeatmaps(['leetcode'])
   const reveal = useReveal(staggerContainer)
 
   const platforms = data?.platforms ?? []
@@ -120,7 +120,7 @@ export function Coding() {
             ))}
           </motion.div>
 
-          {/* Activity heatmaps (GitHub contributions + LeetCode submissions) */}
+          {/* LeetCode submission heatmap (GitHub contributions live in the GitHub section). */}
           {(activeHeatmaps.length > 0 || heatmapsLoading) && (
             <div className="mt-6 space-y-5">
               {heatmapsLoading && activeHeatmaps.length === 0 ? (

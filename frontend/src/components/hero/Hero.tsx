@@ -1,10 +1,11 @@
-import { ArrowRight, Download, Github, Mail } from 'lucide-react'
+import { ArrowRight, Github, Mail } from 'lucide-react'
 import { profile } from '@/data/profile'
 import { socialLinks } from '@/data/socialLinks'
 import { Button } from '@/components/ui/Button'
 import { SocialLinks } from '@/components/ui/SocialLinks'
 import { RotatingText } from './RotatingText'
 import { HeroVisual } from './HeroVisual'
+import { ResumeMenu } from './ResumeMenu'
 
 const nameChars = profile.name.split('')
 
@@ -76,7 +77,7 @@ export function Hero() {
 
           {/* CTAs */}
           <div
-            className="mt-8 flex flex-wrap items-center gap-3 animate-fade-up"
+            className="relative z-20 mt-8 flex flex-wrap items-center gap-3 animate-fade-up"
             style={{ animationDelay: '0.92s' }}
           >
             <Button onClick={() => scrollTo('#projects')}>
@@ -93,12 +94,7 @@ export function Hero() {
               <Mail className="h-4 w-4" aria-hidden="true" />
               Contact
             </Button>
-            {profile.resumeUrl && (
-              <Button as="a" href={profile.resumeUrl} download variant="ghost">
-                <Download className="h-4 w-4" aria-hidden="true" />
-                Resume
-              </Button>
-            )}
+            <ResumeMenu />
           </div>
 
           <div className="mt-8 animate-fade-up" style={{ animationDelay: '1s' }}>

@@ -3,7 +3,7 @@ import {
   Bot,
   Code2,
   Copy,
-  Download,
+  FileText,
   FolderGit2,
   Github,
   GraduationCap,
@@ -21,6 +21,7 @@ import { navItems } from '@/lib/navigation'
 import { profile } from '@/data/profile'
 import { socialLinks } from '@/data/socialLinks'
 import { projects } from '@/data/projects'
+import { resumeOptions } from '@/data/resumes'
 
 /**
  * Command Center command model.
@@ -92,16 +93,16 @@ export function buildCommands(a: CommandActions): Command[] {
   // Actions — every entry is gated on the underlying data actually existing.
   const actions: Command[] = []
 
-  if (profile.resumeUrl) {
-    const url = profile.resumeUrl
+  // One download command per real résumé variant (see data/resumes.ts).
+  for (const resume of resumeOptions) {
     actions.push({
-      id: 'download-resume',
-      title: 'Download Resume',
+      id: `download-resume-${resume.id}`,
+      title: `Download ${resume.label}`,
       group: 'Actions',
-      icon: Download,
-      keywords: 'resume cv pdf download curriculum',
+      icon: FileText,
+      keywords: `resume cv pdf download curriculum ${resume.label} ${resume.description}`,
       hint: 'PDF',
-      run: () => a.openExternal(url),
+      run: () => a.openExternal(resume.file),
     })
   }
 
